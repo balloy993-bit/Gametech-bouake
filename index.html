@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Gaming Zone</title>
+<title>Gaming Center Bouaké</title>
 
 <style>
 body {
@@ -20,6 +20,7 @@ table {
   width: 90%;
   margin: auto;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
 th, td {
@@ -36,13 +37,19 @@ th, td {
 }
 
 button {
-  padding: 6px 10px;
   background: #22c55e;
   border: none;
-  color: white;
+  padding: 8px;
   cursor: pointer;
 }
 
+.section {
+  margin-top: 40px;
+}
+
+.red {
+  color: red;
+}
 </style>
 </head>
 
@@ -50,6 +57,23 @@ button {
 
 <h1>🎮 Gaming Center</h1>
 
+<!-- 🔥 SERVICES -->
+<div class="section">
+<h2>Nos services</h2>
+<p>PS4 - PS5 - VR2 - Volant Gaming</p>
+</div>
+
+<!-- 💰 PRIX -->
+<div class="section">
+<h2>Tarifs</h2>
+<p>PS5 : 1500F (1h) | 2500F (2h)</p>
+<p>PS4 : 800F (1h) | 1500F (2h)</p>
+<p>VR2 : 5000F (3h)</p>
+<p>Volant : 2000F PS5 | 1500F PS4</p>
+</div>
+
+<!-- 📊 TABLEAU -->
+<div class="section">
 <h2>Postes disponibles</h2>
 
 <table id="table">
@@ -63,9 +87,10 @@ button {
 </thead>
 <tbody></tbody>
 </table>
+</div>
 
-<br><br>
-
+<!-- 📝 FORMULAIRE -->
+<div class="section">
 <h2>Réserver</h2>
 
 <input id="nom" placeholder="Nom"><br><br>
@@ -74,83 +99,72 @@ button {
 <option>PS4</option>
 <option>PS5</option>
 <option>VR2</option>
-<option>VOLANT</option>
 </select><br><br>
 
 <select id="duree">
 <option>1h</option>
 <option>2h</option>
 <option>3h</option>
-<option>journée</option>
+<option>Journée</option>
 </select><br><br>
 
-<input id="date" type="date"><br><br>
-<input id="heure" type="time"><br><br>
+<input type="date" id="date"><br><br>
+<input type="time" id="heure"><br><br>
 
 <textarea id="message" placeholder="Message"></textarea><br><br>
 
 <button onclick="reserver()">Réserver</button>
 
-<p style="color:red">
-La réservation est confirmée après validation sur WhatsApp
-</p>
+<p class="red">La réservation est confirmée après validation sur WhatsApp</p>
+</div>
 
 <script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzAkkWGNjVYjy5732R11ARmyT80rHsbwvIY2TAs_CLAYQbrxctuo8jyOfFFn9C_MiGzeA/exec";
 
-const API = "COLLE TON LIEN ICI";
+async function charger() {
+  const res = await fetch(API_URL);
+  const data = await res.json();
 
-function charger() {
-  fetch(API)
-  .then(res => res.json())
-  .then(data => {
-    let tbody = document.querySelector("#table tbody");
-    tbody.innerHTML = "";
+  const table = document.querySelector("#table tbody");
+  table.innerHTML = "";
 
-    data.forEach(p => {
-      let statutClass = p.statut === "libre" ? "libre" : "occupe";
+  data.forEach(p => {
+    const tr = document.createElement("tr");
 
-      tbody.innerHTML += `
-        <tr>
-          <td>${p.type}</td>
-          <td>${p.nom}</td>
-          <td class="${statutClass}">${p.statut}</td>
-          <td>
-            ${p.statut === "libre" ? `<button onclick="choisir('${p.type}')">Réserver</button>` : "❌"}
-          </td>
-        </tr>
-      `;
-    });
+    tr.innerHTML = `
+      <td>${p.type}</td>
+      <td>${p.nom}</td>
+      <td class="${p.statut === 'libre' ? 'libre' : 'occupe'}">${p.statut}</td>
+      <td><button onclick="selectPoste('${p.nom}')">Réserver</button></td>
+    `;
+
+    table.appendChild(tr);
   });
 }
 
-function choisir(type){
-  document.getElementById("service").value = type;
+function selectPoste(nom) {
+  document.getElementById("message").value = "Je veux réserver " + nom;
 }
 
-function reserver(){
-  let nom = document.getElementById("nom").value;
-  let service = document.getElementById("service").value;
-  let duree = document.getElementById("duree").value;
-  let date = document.getElementById("date").value;
-  let heure = document.getElementById("heure").value;
-  let message = document.getElementById("message").value;
+async function reserver() {
+  const data = {
+    nom: document.getElementById("nom").value,
+    service: document.getElementById("service").value,
+    duree: document.getElementById("duree").value,
+    date: document.getElementById("date").value,
+    heure: document.getElementById("heure").value,
+    message: document.getElementById("message").value
+  };
 
-  let texte = `Bonjour, je veux réserver:\nNom: ${nom}\nService: ${service}\nDurée: ${duree}\nDate: ${date}\nHeure: ${heure}\nMessage: ${message}`;
-
-  let whatsapp = "https://wa.me/2250576066244?text=" + encodeURIComponent(texte);
-
-  window.open(whatsapp, "_blank");
-
-  fetch(API, {
+  await fetch(API_URL, {
     method: "POST",
-    body: JSON.stringify({nom, service, duree, date, heure, message})
+    body: JSON.stringify(data)
   });
 
-  alert("Demande envoyée !");
+  alert("Réservation envoyée !");
 }
 
 charger();
-
 </script>
 
 </body>
