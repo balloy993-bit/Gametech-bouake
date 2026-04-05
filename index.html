@@ -3,14 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GameTech Bouaké - Réparation & Accessoires Gaming</title>
-  <meta name="description" content="Réparation de consoles, entretien, accessoires gaming, installation SSD et support technique à Bouaké." />
+  <title>GameTech Bouaké - Salle Gaming et Vente de Consoles</title>
+  <meta name="description" content="Salle gaming à Bouaké avec PS4, PS5, PS VR2, volant gaming et vente de consoles, casques VR, manettes et jeux vidéo." />
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -43,6 +47,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 18px 0;
+      position: relative;
     }
 
     .logo {
@@ -70,6 +75,7 @@
       display: none;
       font-size: 1.8rem;
       cursor: pointer;
+      color: #f8fafc;
     }
 
     .hero {
@@ -137,7 +143,7 @@
       border: 1px solid #1f2937;
       border-radius: 16px;
       padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
 
     .hero-card h3 {
@@ -196,7 +202,7 @@
     }
 
     .stats-grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       text-align: center;
     }
 
@@ -341,8 +347,8 @@
         background: #020617;
         position: absolute;
         top: 70px;
-        right: 5%;
-        width: 220px;
+        right: 0;
+        width: 240px;
         padding: 20px;
         border: 1px solid #1f2937;
         border-radius: 12px;
@@ -365,7 +371,8 @@
       <div class="menu-toggle" id="menuToggle">☰</div>
       <ul class="nav-links" id="navLinks">
         <li><a href="#accueil">Accueil</a></li>
-        <li><a href="#services">Services</a></li>
+        <li><a href="#services">Salle gaming</a></li>
+        <li><a href="#tarifs">Tarifs</a></li>
         <li><a href="#produits">Produits</a></li>
         <li><a href="#apropos">À propos</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -376,26 +383,26 @@
   <section class="hero" id="accueil">
     <div class="container hero-content">
       <div>
-        <h1>Réparation, entretien et accessoires gaming à Bouaké</h1>
+        <h1>Salle gaming et vente de consoles à Bouaké</h1>
         <p>
-          Nous aidons les joueurs avec la maintenance de consoles, le nettoyage,
-          le remplacement de stockage, les accessoires et le support technique,
-          dans un cadre légal et professionnel.
+          Profite d’un espace gaming moderne avec des postes PlayStation 4,
+          PlayStation 5, PlayStation VR2 et volant gaming. Nous proposons aussi
+          la vente de consoles PlayStation, de casques VR, de manettes et de jeux vidéo.
         </p>
         <div class="btn-group">
-          <a href="#contact" class="btn btn-primary">Demander un devis</a>
-          <a href="#services" class="btn btn-secondary">Voir les services</a>
+          <a href="#tarifs" class="btn btn-primary">Voir les tarifs</a>
+          <a href="#contact" class="btn btn-secondary">Nous contacter</a>
         </div>
       </div>
 
       <div class="hero-card">
-        <h3>Services populaires</h3>
+        <h3>Nos espaces et produits</h3>
         <ul>
-          <li>Nettoyage interne PS4 / PS5 / Xbox</li>
-          <li>Remplacement disque dur / SSD</li>
-          <li>Réduction du bruit et surchauffe</li>
-          <li>Installation accessoires gaming</li>
-          <li>Diagnostic pannes console</li>
+          <li>5 postes PlayStation 4</li>
+          <li>4 postes PlayStation 5</li>
+          <li>2 postes PlayStation VR2</li>
+          <li>Volant gaming sur PS4 et PS5</li>
+          <li>Vente de PS3, PS4, PS5, casques VR, manettes et jeux</li>
         </ul>
       </div>
     </div>
@@ -404,45 +411,125 @@
   <section id="services">
     <div class="container">
       <div class="section-title">
-        <h2>Nos services</h2>
-        <p>Des prestations utiles pour garder ton matériel gaming propre, stable et performant.</p>
+        <h2>Notre salle gaming</h2>
+        <p>
+          Un espace conçu pour jouer, se détendre et profiter d’une expérience
+          gaming moderne seul ou entre amis.
+        </p>
       </div>
 
       <div class="services-grid">
         <div class="card">
-          <h3>Diagnostic console</h3>
-          <p>Analyse des problèmes de démarrage, bruit, surchauffe, lenteur, lecteur ou stockage.</p>
-          <span class="price">À partir de 5 000 FCFA</span>
+          <h3>Espace PS4</h3>
+          <p>
+            5 postes PlayStation 4 disponibles pour les joueurs qui veulent
+            profiter de nombreuses licences dans une ambiance conviviale.
+          </p>
+          <span class="price">5 postes disponibles</span>
         </div>
 
         <div class="card">
-          <h3>Nettoyage complet</h3>
-          <p>Ouverture, dépoussiérage, nettoyage ventilateur et entretien général de la console.</p>
-          <span class="price">À partir de 10 000 FCFA</span>
+          <h3>Espace PS5</h3>
+          <p>
+            4 postes PlayStation 5 pour jouer sur nouvelle génération avec
+            de meilleures performances et une expérience plus fluide.
+          </p>
+          <span class="price">4 postes disponibles</span>
         </div>
 
         <div class="card">
-          <h3>Installation SSD</h3>
-          <p>Remplacement du disque d’origine par un SSD pour améliorer les temps de chargement.</p>
-          <span class="price">À partir de 15 000 FCFA</span>
+          <h3>Espace PS VR2</h3>
+          <p>
+            2 postes PlayStation VR2 pour une expérience immersive en réalité
+            virtuelle, idéale pour découvrir une autre façon de jouer.
+          </p>
+          <span class="price">2 postes disponibles</span>
         </div>
 
         <div class="card">
-          <h3>Accessoires gaming</h3>
-          <p>Manettes, casques, câbles HDMI, supports, ventilateurs externes et rangement.</p>
-          <span class="price">Prix variable</span>
+          <h3>Volant gaming sur PS5</h3>
+          <p>
+            Une expérience premium pour les amateurs de jeux de course
+            avec plus de réalisme et de sensations.
+          </p>
+          <span class="price">Session premium</span>
         </div>
 
         <div class="card">
-          <h3>Support boutique</h3>
-          <p>Conseils pour salle gaming, disposition des postes, sécurité électrique et entretien régulier.</p>
-          <span class="price">Sur devis</span>
+          <h3>Volant gaming sur PS4</h3>
+          <p>
+            Une option idéale pour les joueurs qui aiment les jeux automobiles
+            et souhaitent une expérience plus immersive.
+          </p>
+          <span class="price">Session spéciale</span>
         </div>
 
         <div class="card">
-          <h3>Assistance logicielle légale</h3>
-          <p>Mise à jour système, sauvegarde de données, transfert de profils et configuration réseau.</p>
-          <span class="price">À partir de 7 500 FCFA</span>
+          <h3>Réservation simple</h3>
+          <p>
+            Possibilité de venir jouer à l’heure, entre amis ou en petit groupe
+            selon la disponibilité des postes.
+          </p>
+          <span class="price">Accès rapide</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tarifs">
+    <div class="container">
+      <div class="section-title">
+        <h2>Tarifs</h2>
+        <p>
+          Des prix clairs pour tous les types de joueurs, du jeu classique
+          à l’expérience premium.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div class="card">
+          <h3>PS4</h3>
+          <p>
+            1 heure : 800 FCFA<br>
+            2 heures : 1500 FCFA
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>PS5</h3>
+          <p>
+            1 heure : 1500 FCFA<br>
+            2 heures : 2500 FCFA
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>PS VR2</h3>
+          <p>
+            3 heures : 5000 FCFA
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Volant gaming sur PS5</h3>
+          <p>
+            1 heure : 2000 FCFA
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Volant gaming sur PS4</h3>
+          <p>
+            1 heure : 1500 FCFA
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Réservations</h3>
+          <p>
+            Pour les groupes, les longues sessions ou des demandes spéciales,
+            contacte-nous directement.
+          </p>
         </div>
       </div>
     </div>
@@ -451,33 +538,85 @@
   <section id="produits">
     <div class="container">
       <div class="section-title">
-        <h2>Produits recommandés</h2>
-        <p>Quelques articles que tu peux vendre dans une boutique gaming ou proposer à tes clients.</p>
+        <h2>Produits en vente</h2>
+        <p>
+          Nous proposons la vente de consoles PlayStation, de casques VR,
+          de manettes et de jeux vidéo selon le stock disponible.
+        </p>
       </div>
 
       <div class="products-grid">
         <div class="card">
-          <h3>Manette PS4 / PS5</h3>
-          <p>Produit très demandé pour remplacement ou second joueur.</p>
-          <span class="price">Bonne rotation</span>
+          <h3>PlayStation 3</h3>
+          <p>
+            Console disponible selon le stock pour les amateurs de jeux classiques.
+          </p>
+          <span class="price">Disponible selon stock</span>
         </div>
 
         <div class="card">
-          <h3>Casque gaming</h3>
-          <p>Utile pour les joueurs en ligne et pour les postes gaming en salle.</p>
-          <span class="price">Bonne marge</span>
+          <h3>PlayStation 4</h3>
+          <p>
+            Console très demandée avec un grand choix de jeux et d’accessoires.
+          </p>
+          <span class="price">Disponible selon stock</span>
         </div>
 
         <div class="card">
-          <h3>SSD 500 Go / 1 To</h3>
-          <p>Pour améliorer la vitesse de chargement et moderniser une console ancienne.</p>
-          <span class="price">Produit premium</span>
+          <h3>PlayStation 5</h3>
+          <p>
+            Console nouvelle génération pour les joueurs qui veulent puissance
+            et fluidité.
+          </p>
+          <span class="price">Disponible selon stock</span>
         </div>
 
         <div class="card">
-          <h3>Support ventilé</h3>
-          <p>Accessoire complémentaire pour réduire la chaleur dans les environnements chauds.</p>
-          <span class="price">Vente facile</span>
+          <h3>Casques VR PlayStation</h3>
+          <p>
+            Casques de réalité virtuelle PlayStation pour une immersion plus poussée.
+          </p>
+          <span class="price">Selon modèle</span>
+        </div>
+
+        <div class="card">
+          <h3>Casques Quest</h3>
+          <p>
+            Casques VR Quest disponibles selon l’arrivage et les modèles.
+          </p>
+          <span class="price">Selon modèle</span>
+        </div>
+
+        <div class="card">
+          <h3>Manettes</h3>
+          <p>
+            Manettes pour différentes consoles, selon la disponibilité en stock.
+          </p>
+          <span class="price">Prix variable</span>
+        </div>
+
+        <div class="card">
+          <h3>Jeux PS3</h3>
+          <p>
+            Sélection de jeux PlayStation 3 selon les arrivages.
+          </p>
+          <span class="price">Selon titre</span>
+        </div>
+
+        <div class="card">
+          <h3>Jeux PS4</h3>
+          <p>
+            Jeux variés pour PlayStation 4, pour plusieurs styles de joueurs.
+          </p>
+          <span class="price">Selon titre</span>
+        </div>
+
+        <div class="card">
+          <h3>Jeux PS5</h3>
+          <p>
+            Jeux nouvelle génération disponibles selon le stock.
+          </p>
+          <span class="price">Selon titre</span>
         </div>
       </div>
     </div>
@@ -486,39 +625,48 @@
   <section class="about" id="apropos">
     <div class="container">
       <div class="section-title">
-        <h2>Pourquoi nous choisir</h2>
-        <p>Un service clair, local et centré sur l’entretien légal et durable du matériel gaming.</p>
+        <h2>À propos</h2>
+        <p>
+          Un lieu moderne à Bouaké pour jouer et acheter du matériel gaming.
+        </p>
       </div>
 
       <div class="about-content">
         <div class="about-box">
           <p>
-            GameTech Bouaké est un concept de service dédié aux consoles et accessoires gaming.
-            L’idée est de proposer une alternative sérieuse: réparation, entretien, optimisation
-            matérielle et vente d’accessoires utiles.
+            GameTech Bouaké est une salle gaming moderne dédiée aux joueurs.
+            L’espace comprend 5 postes PS4, 4 postes PS5 et 2 postes PS VR2,
+            ainsi qu’un espace avec volant gaming.
           </p>
+
           <p>
-            Le but n’est pas de contourner les protections des appareils, mais de prolonger leur durée
-            de vie, améliorer leur confort d’utilisation et aider les joueurs à mieux entretenir leur matériel.
+            En plus de la salle gaming, nous proposons la vente de consoles
+            PlayStation 3, PlayStation 4 et PlayStation 5, de casques VR
+            PlayStation et Quest, de manettes et de jeux vidéo.
+          </p>
+
+          <p>
+            Notre objectif est d’offrir un lieu de divertissement de qualité
+            et un point de vente fiable pour les passionnés de jeux vidéo.
           </p>
         </div>
 
         <div class="stats-grid">
           <div class="stat-card">
-            <h3>100%</h3>
-            <p>services légaux</p>
+            <h3>5</h3>
+            <p>postes PS4</p>
           </div>
           <div class="stat-card">
-            <h3>24h</h3>
-            <p>réponse rapide</p>
+            <h3>4</h3>
+            <p>postes PS5</p>
           </div>
           <div class="stat-card">
-            <h3>Pro</h3>
-            <p>approche sérieuse</p>
+            <h3>2</h3>
+            <p>postes PS VR2</p>
           </div>
           <div class="stat-card">
-            <h3>Local</h3>
-            <p>service de proximité</p>
+            <h3>Vente</h3>
+            <p>PS et accessoires</p>
           </div>
         </div>
       </div>
@@ -529,7 +677,9 @@
     <div class="container">
       <div class="section-title">
         <h2>Contact</h2>
-        <p>Un projet de boutique gaming, une console à vérifier ou un devis à demander ? Écris-nous.</p>
+        <p>
+          Pour une réservation, une information ou un achat, contacte-nous directement.
+        </p>
       </div>
 
       <div class="contact-wrapper">
@@ -538,7 +688,11 @@
           <p><strong>Ville :</strong> Bouaké</p>
           <p><strong>Téléphone :</strong> +225 00 00 00 00 00</p>
           <p><strong>Email :</strong> contact@gametechbouake.com</p>
-          <p><strong>Horaires :</strong> Lundi au Samedi, 9h à 19h</p>
+          <p>
+            <strong>Horaires :</strong><br>
+            Lundi à Vendredi : 08h à 22h<br>
+            Samedi et Dimanche : 10h à 23h30
+          </p>
         </div>
 
         <div class="form-box">
@@ -546,18 +700,24 @@
             <input type="text" id="name" placeholder="Ton nom" required />
             <input type="email" id="email" placeholder="Ton email" required />
             <select id="service" required>
-              <option value="">Choisir un service</option>
-              <option>Diagnostic console</option>
-              <option>Nettoyage complet</option>
-              <option>Installation SSD</option>
-              <option>Accessoires gaming</option>
-              <option>Support boutique</option>
+              <option value="">Choisir une demande</option>
+              <option>Réserver un poste PS4</option>
+              <option>Réserver un poste PS5</option>
+              <option>Réserver un poste PS VR2</option>
+              <option>Réserver un volant gaming PS4</option>
+              <option>Réserver un volant gaming PS5</option>
+              <option>Achat de PS3</option>
+              <option>Achat de PS4</option>
+              <option>Achat de PS5</option>
+              <option>Achat de casque VR</option>
+              <option>Achat de manette</option>
+              <option>Achat de jeu</option>
             </select>
             <textarea id="messageText" placeholder="Explique ton besoin..." required></textarea>
             <button type="submit" class="btn btn-primary">Envoyer</button>
           </form>
           <div class="message" id="successMessage">
-            Message envoyé localement. Branche un vrai backend pour recevoir les demandes par email.
+            Message enregistré localement. Ajoute ensuite WhatsApp ou un vrai système email pour recevoir les demandes.
           </div>
         </div>
       </div>
@@ -566,7 +726,7 @@
 
   <footer>
     <div class="container">
-      <p>© 2026 GameTech Bouaké - Site vitrine gaming et services légaux.</p>
+      <p>© 2026 GameTech Bouaké - Salle gaming et vente de consoles et accessoires.</p>
     </div>
   </footer>
 
@@ -594,7 +754,7 @@
         return;
       }
 
-      console.log("Nouveau message :", {
+      console.log("Nouvelle demande :", {
         name,
         email,
         service,
@@ -611,4 +771,3 @@
   </script>
 </body>
 </html>
-<!--test-->
