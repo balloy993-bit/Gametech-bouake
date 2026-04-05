@@ -1,902 +1,179 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GameTech Bouaké - Salle Gaming et Vente de Consoles</title>
-  <meta
-    name="description"
-    content="Salle gaming à Bouaké avec PS4, PS5, PS VR2, volant gaming et vente de consoles, casques VR, manettes et jeux vidéo."
-  />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: #0f172a;
-      color: #f8fafc;
-      line-height: 1.6;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    header {
-      background: #020617;
-      border-bottom: 1px solid #1e293b;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 0;
-      position: relative;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #38bdf8;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: #e2e8f0;
-      transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: #38bdf8;
-    }
-
-    .menu-toggle {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: #f8fafc;
-    }
-
-    .hero {
-      padding: 90px 0 70px;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-    }
-
-    .hero-content {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      line-height: 1.2;
-    }
-
-    .hero p {
-      color: #cbd5e1;
-      margin-bottom: 30px;
-      font-size: 1.05rem;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 14px 22px;
-      border-radius: 10px;
-      font-weight: bold;
-      display: inline-block;
-      transition: 0.3s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: #38bdf8;
-      color: #0f172a;
-    }
-
-    .btn-primary:hover {
-      background: #0ea5e9;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid #38bdf8;
-      color: #38bdf8;
-    }
-
-    .btn-secondary:hover {
-      background: #38bdf8;
-      color: #0f172a;
-    }
-
-    .hero-card,
-    .card,
-    .about-box,
-    .stat-card,
-    .contact-box,
-    .form-box,
-    .gallery-item,
-    .game-card {
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 16px;
-    }
-
-    .hero-card {
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    .hero-card h3 {
-      margin-bottom: 15px;
-      color: #38bdf8;
-    }
-
-    .hero-card ul {
-      list-style: none;
-    }
-
-    .hero-card li {
-      padding: 10px 0;
-      border-bottom: 1px solid #1f2937;
-      color: #e2e8f0;
-    }
-
-    .hero-card li:last-child {
-      border-bottom: none;
-    }
-
-    section {
-      padding: 70px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .section-title h2 {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-      color: #38bdf8;
-    }
-
-    .section-title p {
-      color: #cbd5e1;
-      max-width: 700px;
-      margin: auto;
-    }
-
-    .services-grid,
-    .products-grid,
-    .stats-grid,
-    .gallery-grid,
-    .games-grid {
-      display: grid;
-      gap: 25px;
-    }
-
-    .services-grid {
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    }
-
-    .products-grid {
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    }
-
-    .stats-grid {
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      text-align: center;
-    }
-
-    .gallery-grid {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-
-    .games-grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-
-    .card {
-      padding: 24px;
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-
-    .card:hover,
-    .gallery-item:hover,
-    .game-card:hover {
-      transform: translateY(-6px);
-      border-color: #38bdf8;
-    }
-
-    .card h3,
-    .game-card h3 {
-      margin-bottom: 12px;
-      color: #e2e8f0;
-    }
-
-    .card p,
-    .game-card p {
-      color: #cbd5e1;
-      font-size: 0.97rem;
-    }
-
-    .price {
-      display: inline-block;
-      margin-top: 15px;
-      font-weight: bold;
-      color: #38bdf8;
-    }
-
-    .gallery-item {
-      overflow: hidden;
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-
-    .gallery-placeholder {
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      color: #38bdf8;
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-
-    .gallery-caption {
-      padding: 16px;
-      color: #cbd5e1;
-    }
-
-    .about {
-      background: #020617;
-    }
-
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 35px;
-      align-items: center;
-    }
-
-    .about-box {
-      padding: 28px;
-    }
-
-    .about-box p {
-      color: #cbd5e1;
-      margin-bottom: 15px;
-    }
-
-    .stat-card {
-      padding: 25px;
-    }
-
-    .stat-card h3 {
-      font-size: 2rem;
-      color: #38bdf8;
-      margin-bottom: 10px;
-    }
-
-    .contact-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-
-    .contact-box,
-    .form-box {
-      padding: 28px;
-    }
-
-    .contact-box p {
-      margin-bottom: 12px;
-      color: #cbd5e1;
-    }
-
-    form {
-      display: grid;
-      gap: 15px;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid #334155;
-      background: #0f172a;
-      color: #f8fafc;
-      outline: none;
-    }
-
-    textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
-
-    .small-note {
-      font-size: 0.9rem;
-      color: #94a3b8;
-      margin-top: 5px;
-    }
-
-    .game-card {
-      padding: 20px;
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-
-    .game-badge {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #0f172a;
-      border: 1px solid #334155;
-      color: #38bdf8;
-      font-size: 0.85rem;
-    }
-
-    .whatsapp-btn {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      background: #25D366;
-      color: white;
-      padding: 14px 18px;
-      border-radius: 999px;
-      font-weight: bold;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-    }
-
-    .whatsapp-btn:hover {
-      opacity: 0.9;
-    }
-
-    footer {
-      background: #020617;
-      padding: 25px 0;
-      border-top: 1px solid #1e293b;
-      text-align: center;
-      color: #94a3b8;
-    }
-
-    @media (max-width: 900px) {
-      .hero-content,
-      .about-content,
-      .contact-wrapper {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        font-size: 2.3rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-        flex-direction: column;
-        background: #020617;
-        position: absolute;
-        top: 70px;
-        right: 0;
-        width: 240px;
-        padding: 20px;
-        border: 1px solid #1f2937;
-        border-radius: 12px;
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      .whatsapp-btn {
-        right: 12px;
-        bottom: 12px;
-        padding: 12px 14px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GameTech Bouaké</title>
+
+<style>
+body{font-family:Arial;background:#0f172a;color:white;margin:0}
+.container{width:90%;margin:auto}
+section{padding:60px 0}
+h1,h2{color:#38bdf8}
+
+.btn{padding:12px 20px;border-radius:8px;font-weight:bold;text-decoration:none}
+.btn-primary{background:#38bdf8;color:black}
+.btn-call{background:#22c55e;color:white}
+
+.small-note{color:red;font-weight:bold}
+
+.hidden{display:none}
+
+/* TABLE */
+.availability-table{
+width:100%;
+border-collapse:collapse;
+background:#111827;
+}
+.availability-table th,.availability-table td{
+padding:12px;
+border:1px solid #1f2937;
+}
+.table-status{
+padding:6px 10px;
+border-radius:20px;
+font-weight:bold;
+}
+.table-free{color:#4ade80}
+.table-booked{color:#fbbf24}
+.table-busy{color:#f87171}
+
+/* FLOAT */
+.whatsapp-btn{
+position:fixed;bottom:20px;right:20px;
+background:#25D366;padding:12px;border-radius:50%;
+}
+.call-btn{
+position:fixed;bottom:80px;right:20px;
+background:#22c55e;padding:12px;border-radius:50%;
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <div class="container navbar">
-      <div class="logo">GameTech Bouaké</div>
-      <div class="menu-toggle" id="menuToggle">☰</div>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#accueil">Accueil</a></li>
-        <li><a href="#services">Salle gaming</a></li>
-        <li><a href="#tarifs">Tarifs</a></li>
-        <li><a href="#galerie">Galerie</a></li>
-        <li><a href="#jeux">Jeux</a></li>
-        <li><a href="#produits">Produits</a></li>
-        <li><a href="#contact">Réserver</a></li>
-      </ul>
-    </div>
-  </header>
 
-  <section class="hero" id="accueil">
-    <div class="container hero-content">
-      <div>
-        <h1>Salle gaming et vente de consoles à Bouaké</h1>
-        <p>
-          Profite d’un espace gaming moderne avec des postes PlayStation 4,
-          PlayStation 5, PlayStation VR2 et volant gaming. Nous proposons aussi
-          la vente de consoles PlayStation, de casques VR, de manettes et de jeux vidéo.
-        </p>
-        <div class="btn-group">
-          <a href="#tarifs" class="btn btn-primary">Voir les tarifs</a>
-          <a href="#contact" class="btn btn-secondary">Réserver maintenant</a>
-        </div>
-      </div>
+<section>
+<div class="container">
+<h1>GameTech Bouaké</h1>
+<p>Salle gaming + vente de consoles</p>
 
-      <div class="hero-card">
-        <h3>Nos espaces et produits</h3>
-        <ul>
-          <li>5 postes PlayStation 4</li>
-          <li>4 postes PlayStation 5</li>
-          <li>2 postes PlayStation VR2</li>
-          <li>Volant gaming sur PS4 et PS5</li>
-          <li>Vente de PS3, PS4, PS5, casques VR, manettes et jeux</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+<a href="tel:2250576066244" class="btn btn-call">Appeler</a>
+<a href="#contact" class="btn btn-primary">Réserver</a>
+</div>
+</section>
 
-  <section id="services">
-    <div class="container">
-      <div class="section-title">
-        <h2>Notre salle gaming</h2>
-        <p>
-          Un espace conçu pour jouer, se détendre et profiter d’une expérience
-          gaming moderne seul ou entre amis.
-        </p>
-      </div>
+<section>
+<div class="container">
+<h2>Places disponibles</h2>
+<p>PS4: 5 postes | PS5: 4 postes | VR2: 2 postes</p>
+</div>
+</section>
 
-      <div class="services-grid">
-        <div class="card">
-          <h3>Espace PS4</h3>
-          <p>5 postes PlayStation 4 disponibles dans une ambiance conviviale.</p>
-          <span class="price">5 postes disponibles</span>
-        </div>
+<section id="disponibilites">
+<div class="container">
+<h2>Disponibilités</h2>
 
-        <div class="card">
-          <h3>Espace PS5</h3>
-          <p>4 postes PlayStation 5 pour une expérience plus fluide et premium.</p>
-          <span class="price">4 postes disponibles</span>
-        </div>
+<table class="availability-table">
+<tr><th>Poste</th><th>Type</th><th>Statut</th></tr>
 
-        <div class="card">
-          <h3>Espace PS VR2</h3>
-          <p>2 postes PlayStation VR2 pour une immersion en réalité virtuelle.</p>
-          <span class="price">2 postes disponibles</span>
-        </div>
+<tr><td>PS4-1</td><td>PS4</td><td><span class="table-status table-free">Libre</span></td></tr>
+<tr><td>PS4-2</td><td>PS4</td><td><span class="table-status table-busy">Occupé</span></td></tr>
+<tr><td>PS4-3</td><td>PS4</td><td><span class="table-status table-free">Libre</span></td></tr>
+<tr><td>PS4-4</td><td>PS4</td><td><span class="table-status table-booked">Réservé</span></td></tr>
+<tr><td>PS4-5</td><td>PS4</td><td><span class="table-status table-free">Libre</span></td></tr>
 
-        <div class="card">
-          <h3>Volant gaming sur PS5</h3>
-          <p>Une expérience premium pour les amateurs de jeux de course.</p>
-          <span class="price">Session premium</span>
-        </div>
+<tr><td>PS5-1</td><td>PS5</td><td><span class="table-status table-free">Libre</span></td></tr>
+<tr><td>PS5-2</td><td>PS5</td><td><span class="table-status table-busy">Occupé</span></td></tr>
+<tr><td>PS5-3</td><td>PS5</td><td><span class="table-status table-free">Libre</span></td></tr>
+<tr><td>PS5-4</td><td>PS5</td><td><span class="table-status table-booked">Réservé</span></td></tr>
 
-        <div class="card">
-          <h3>Volant gaming sur PS4</h3>
-          <p>Une option idéale pour les joueurs qui aiment les sensations de conduite.</p>
-          <span class="price">Session spéciale</span>
-        </div>
+<tr><td>VR2-1</td><td>VR2</td><td><span class="table-status table-booked">Réservé</span></td></tr>
+<tr><td>VR2-2</td><td>VR2</td><td><span class="table-status table-free">Libre</span></td></tr>
 
-        <div class="card">
-          <h3>Réservation simple</h3>
-          <p>Viens jouer à l’heure, entre amis ou en petit groupe selon la disponibilité.</p>
-          <span class="price">Accès rapide</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<tr><td>VOLANT PS4</td><td>PS4</td><td><span class="table-status table-free">Libre</span></td></tr>
+<tr><td>VOLANT PS5</td><td>PS5</td><td><span class="table-status table-busy">Occupé</span></td></tr>
 
-  <section id="tarifs">
-    <div class="container">
-      <div class="section-title">
-        <h2>Tarifs</h2>
-        <p>Des prix clairs pour tous les types de joueurs.</p>
-      </div>
+</table>
+</div>
+</section>
 
-      <div class="services-grid">
-        <div class="card">
-          <h3>PS4</h3>
-          <p>
-            1 heure : 800 FCFA<br>
-            2 heures : 1500 FCFA
-          </p>
-        </div>
+<section id="reseaux">
+<div class="container">
+<h2>Réseaux</h2>
 
-        <div class="card">
-          <h3>PS5</h3>
-          <p>
-            1 heure : 1500 FCFA<br>
-            2 heures : 2500 FCFA
-          </p>
-        </div>
+<a href="https://instagram.com/toncompte">Instagram</a><br>
+<a href="https://tiktok.com/@toncompte">TikTok</a>
 
-        <div class="card">
-          <h3>PS VR2</h3>
-          <p>
-            3 heures : 5000 FCFA
-          </p>
-        </div>
+</div>
+</section>
 
-        <div class="card">
-          <h3>Volant gaming sur PS5</h3>
-          <p>
-            1 heure : 2000 FCFA
-          </p>
-        </div>
+<section id="contact">
+<div class="container">
+<h2>Réservation</h2>
 
-        <div class="card">
-          <h3>Volant gaming sur PS4</h3>
-          <p>
-            1 heure : 1500 FCFA
-          </p>
-        </div>
+<p class="small-note">La réservation est confirmée après validation sur WhatsApp</p>
 
-        <div class="card">
-          <h3>Réservations</h3>
-          <p>Pour les groupes ou longues sessions, contacte-nous directement.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<form id="form">
 
-  <section id="galerie">
-    <div class="container">
-      <div class="section-title">
-        <h2>Galerie</h2>
-        <p>Tu peux remplacer ces blocs par tes vraies photos plus tard.</p>
-      </div>
+<input id="name" placeholder="Nom" required>
 
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <div class="gallery-placeholder">Photo salle PS4</div>
-          <div class="gallery-caption">Zone dédiée aux postes PlayStation 4.</div>
-        </div>
+<select id="service">
+<option>Réserver PS4</option>
+<option>Réserver PS5</option>
+<option>Réserver VR2</option>
+<option>Achat PS5</option>
+</select>
 
-        <div class="gallery-item">
-          <div class="gallery-placeholder">Photo salle PS5</div>
-          <div class="gallery-caption">Espace premium PlayStation 5.</div>
-        </div>
+<div id="durationBox">
+<select id="duration">
+<option>1h</option>
+<option>2h</option>
+<option>Journée complète</option>
+<option>Location</option>
+</select>
+</div>
 
-        <div class="gallery-item">
-          <div class="gallery-placeholder">Photo PS VR2</div>
-          <div class="gallery-caption">Expérience réalité virtuelle immersive.</div>
-        </div>
+<input type="date" id="date">
+<input type="time" id="time">
 
-        <div class="gallery-item">
-          <div class="gallery-placeholder">Photo volant gaming</div>
-          <div class="gallery-caption">Coin course automobile avec volant.</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<textarea id="msg"></textarea>
 
-  <section id="jeux">
-    <div class="container">
-      <div class="section-title">
-        <h2>Jeux populaires</h2>
-        <p>Quelques titres appréciés par les joueurs.</p>
-      </div>
+<button class="btn btn-primary">WhatsApp</button>
 
-      <div class="games-grid">
-        <div class="game-card">
-          <h3>EA Sports FC</h3>
-          <p>Le jeu incontournable pour les matchs entre amis.</p>
-          <span class="game-badge">Football</span>
-        </div>
+</form>
+</div>
+</section>
 
-        <div class="game-card">
-          <h3>Mortal Kombat</h3>
-          <p>Parfait pour les affrontements rapides et intenses.</p>
-          <span class="game-badge">Combat</span>
-        </div>
+<a class="call-btn" href="tel:2250576066244">📞</a>
+<a class="whatsapp-btn" href="https://wa.me/2250576066244">💬</a>
 
-        <div class="game-card">
-          <h3>Call of Duty</h3>
-          <p>Action rapide pour les amateurs de tir et de compétition.</p>
-          <span class="game-badge">Action</span>
-        </div>
+<script>
+const form=document.getElementById("form")
+const service=document.getElementById("service")
+const durationBox=document.getElementById("durationBox")
 
-        <div class="game-card">
-          <h3>GTA</h3>
-          <p>Une expérience libre et très demandée par de nombreux joueurs.</p>
-          <span class="game-badge">Aventure</span>
-        </div>
+service.addEventListener("change",()=>{
+if(service.value.includes("Achat")){
+durationBox.classList.add("hidden")
+}else{
+durationBox.classList.remove("hidden")
+}
+})
 
-        <div class="game-card">
-          <h3>Gran Turismo</h3>
-          <p>Idéal avec le volant gaming pour une immersion maximale.</p>
-          <span class="game-badge">Course</span>
-        </div>
+form.addEventListener("submit",e=>{
+e.preventDefault()
 
-        <div class="game-card">
-          <h3>Beat Saber / VR</h3>
-          <p>Une expérience VR rythmée et amusante.</p>
-          <span class="game-badge">VR</span>
-        </div>
-      </div>
-    </div>
-  </section>
+let text=`Bonjour
+Nom:${name.value}
+Service:${service.value}
+Durée:${duration.value}
+Date:${date.value}
+Heure:${time.value}
+Message:${msg.value}`
 
-  <section id="produits">
-    <div class="container">
-      <div class="section-title">
-        <h2>Produits en vente</h2>
-        <p>
-          Nous proposons la vente de consoles PlayStation, de casques VR,
-          de manettes et de jeux vidéo selon le stock disponible.
-        </p>
-      </div>
+window.open("https://wa.me/2250000000000?text="+encodeURIComponent(text))
+})
+</script>
 
-      <div class="products-grid">
-        <div class="card">
-          <h3>PlayStation 3</h3>
-          <p>Console disponible selon le stock pour les amateurs de jeux classiques.</p>
-          <span class="price">Disponible selon stock</span>
-        </div>
-
-        <div class="card">
-          <h3>PlayStation 4</h3>
-          <p>Console très demandée avec un grand choix de jeux et d’accessoires.</p>
-          <span class="price">Disponible selon stock</span>
-        </div>
-
-        <div class="card">
-          <h3>PlayStation 5</h3>
-          <p>Console nouvelle génération pour les joueurs qui veulent puissance et fluidité.</p>
-          <span class="price">Disponible selon stock</span>
-        </div>
-
-        <div class="card">
-          <h3>Casques VR PlayStation</h3>
-          <p>Casques de réalité virtuelle PlayStation pour une immersion plus poussée.</p>
-          <span class="price">Selon modèle</span>
-        </div>
-
-        <div class="card">
-          <h3>Casques Quest</h3>
-          <p>Casques VR Quest disponibles selon l’arrivage et les modèles.</p>
-          <span class="price">Selon modèle</span>
-        </div>
-
-        <div class="card">
-          <h3>Manettes</h3>
-          <p>Manettes pour différentes consoles, selon la disponibilité en stock.</p>
-          <span class="price">Prix variable</span>
-        </div>
-
-        <div class="card">
-          <h3>Jeux PS3</h3>
-          <p>Sélection de jeux PlayStation 3 selon les arrivages.</p>
-          <span class="price">Selon titre</span>
-        </div>
-
-        <div class="card">
-          <h3>Jeux PS4</h3>
-          <p>Jeux variés pour PlayStation 4, pour plusieurs styles de joueurs.</p>
-          <span class="price">Selon titre</span>
-        </div>
-
-        <div class="card">
-          <h3>Jeux PS5</h3>
-          <p>Jeux nouvelle génération disponibles selon le stock.</p>
-          <span class="price">Selon titre</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="about" id="apropos">
-    <div class="container">
-      <div class="section-title">
-        <h2>À propos</h2>
-        <p>Un lieu moderne à Bouaké pour jouer et acheter du matériel gaming.</p>
-      </div>
-
-      <div class="about-content">
-        <div class="about-box">
-          <p>
-            GameTech Bouaké est une salle gaming moderne dédiée aux joueurs.
-            L’espace comprend 5 postes PS4, 4 postes PS5 et 2 postes PS VR2,
-            ainsi qu’un espace avec volant gaming.
-          </p>
-          <p>
-            En plus de la salle gaming, nous proposons la vente de consoles
-            PlayStation 3, PlayStation 4 et PlayStation 5, de casques VR
-            PlayStation et Quest, de manettes et de jeux vidéo.
-          </p>
-          <p>
-            Notre objectif est d’offrir un lieu de divertissement de qualité
-            et un point de vente fiable pour les passionnés de jeux vidéo.
-          </p>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card">
-            <h3>5</h3>
-            <p>postes PS4</p>
-          </div>
-          <div class="stat-card">
-            <h3>4</h3>
-            <p>postes PS5</p>
-          </div>
-          <div class="stat-card">
-            <h3>2</h3>
-            <p>postes PS VR2</p>
-          </div>
-          <div class="stat-card">
-            <h3>Vente</h3>
-            <p>PS et accessoires</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="container">
-      <div class="section-title">
-        <h2>Réserver ou acheter</h2>
-        <p>Remplis ce formulaire et WhatsApp s’ouvrira avec une demande déjà prête.</p>
-      </div>
-
-      <div class="contact-wrapper">
-        <div class="contact-box">
-          <p><strong>Entreprise :</strong> GameTech Bouaké</p>
-          <p><strong>Ville :</strong> Bouaké</p>
-          <p><strong>Téléphone :</strong> +225 00 00 00 00 00</p>
-          <p>
-            <strong>Horaires :</strong><br>
-            Lundi à Vendredi : 08h à 22h<br>
-            Samedi et Dimanche : 10h à 23h30
-          </p>
-          <p><strong>Activité :</strong> Salle gaming, réservation, vente de consoles, accessoires et jeux</p>
-          <p class="small-note">La réservation est confirmée après validation sur WhatsApp.</p>
-        </div>
-
-        <div class="form-box">
-          <form id="whatsappForm">
-            <input type="text" id="name" placeholder="Ton nom" required />
-
-            <select id="service" required>
-              <option value="">Choisir un service ou produit</option>
-              <option>Réserver un poste PS4</option>
-              <option>Réserver un poste PS5</option>
-              <option>Réserver un poste PS VR2</option>
-              <option>Réserver un volant gaming PS4</option>
-              <option>Réserver un volant gaming PS5</option>
-              <option>Achat de PS3</option>
-              <option>Achat de PS4</option>
-              <option>Achat de PS5</option>
-              <option>Achat de casque VR</option>
-              <option>Achat de manette</option>
-              <option>Achat de jeu</option>
-              <option>Demande d'information</option>
-            </select>
-
-            <select id="duration" required>
-              <option value="">Choisir une durée</option>
-              <option>1 heure</option>
-              <option>2 heures</option>
-              <option>3 heures</option>
-              <option>Autre durée</option>
-            </select>
-
-            <input type="date" id="bookingDate" required />
-            <input type="time" id="bookingTime" required />
-
-            <textarea id="messageText" placeholder="Explique ton besoin..." required></textarea>
-
-            <button type="submit" class="btn btn-primary">Envoyer la réservation sur WhatsApp</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <p>© 2026 GameTech Bouaké - Salle gaming et vente de consoles et accessoires.</p>
-    </div>
-  </footer>
-
-  <a
-    class="whatsapp-btn"
-    href="https://wa.me/2250576066244"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    WhatsApp
-  </a>
-
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    menuToggle.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-    });
-
-    const form = document.getElementById("whatsappForm");
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value.trim();
-      const service = document.getElementById("service").value.trim();
-      const duration = document.getElementById("duration").value.trim();
-      const bookingDate = document.getElementById("bookingDate").value;
-      const bookingTime = document.getElementById("bookingTime").value;
-      const messageText = document.getElementById("messageText").value.trim();
-
-      if (!name || !service || !duration || !bookingDate || !bookingTime || !messageText) {
-        alert("Merci de remplir tous les champs.");
-        return;
-      }
-
-      const phoneNumber = "2250576066244";
-
-      const message =
-        "Bonjour GameTech Bouaké,\n\n" +
-        "Je souhaite faire une réservation / demande.\n\n" +
-        "Nom : " + name + "\n" +
-        "Service / Produit : " + service + "\n" +
-        "Durée : " + duration + "\n" +
-        "Date : " + bookingDate + "\n" +
-        "Heure : " + bookingTime + "\n" +
-        "Message : " + messageText;
-
-      const whatsappURL =
-        "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
-
-      window.open(whatsappURL, "_blank");
-    });
-  </script>
 </body>
 </html>
