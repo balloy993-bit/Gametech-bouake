@@ -141,10 +141,20 @@
       color: #0f172a;
     }
 
-    .hero-card {
+    .hero-card,
+    .card,
+    .about-box,
+    .stat-card,
+    .contact-box,
+    .form-box,
+    .gallery-item,
+    .game-card {
       background: #111827;
       border: 1px solid #1f2937;
       border-radius: 16px;
+    }
+
+    .hero-card {
       padding: 30px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
@@ -191,7 +201,9 @@
 
     .services-grid,
     .products-grid,
-    .stats-grid {
+    .stats-grid,
+    .gallery-grid,
+    .games-grid {
       display: grid;
       gap: 25px;
     }
@@ -209,25 +221,34 @@
       text-align: center;
     }
 
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .games-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
     .card {
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 16px;
       padding: 24px;
       transition: transform 0.25s ease, border-color 0.25s ease;
     }
 
-    .card:hover {
+    .card:hover,
+    .gallery-item:hover,
+    .game-card:hover {
       transform: translateY(-6px);
       border-color: #38bdf8;
     }
 
-    .card h3 {
+    .card h3,
+    .game-card h3 {
       margin-bottom: 12px;
       color: #e2e8f0;
     }
 
-    .card p {
+    .card p,
+    .game-card p {
       color: #cbd5e1;
       font-size: 0.97rem;
     }
@@ -237,6 +258,27 @@
       margin-top: 15px;
       font-weight: bold;
       color: #38bdf8;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .gallery-placeholder {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #38bdf8;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .gallery-caption {
+      padding: 16px;
+      color: #cbd5e1;
     }
 
     .about {
@@ -251,9 +293,6 @@
     }
 
     .about-box {
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 16px;
       padding: 28px;
     }
 
@@ -263,9 +302,6 @@
     }
 
     .stat-card {
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 16px;
       padding: 25px;
     }
 
@@ -283,9 +319,6 @@
 
     .contact-box,
     .form-box {
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 16px;
       padding: 28px;
     }
 
@@ -320,6 +353,22 @@
       font-size: 0.9rem;
       color: #94a3b8;
       margin-top: 5px;
+    }
+
+    .game-card {
+      padding: 20px;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .game-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #38bdf8;
+      font-size: 0.85rem;
     }
 
     .whatsapp-btn {
@@ -398,8 +447,9 @@
         <li><a href="#accueil">Accueil</a></li>
         <li><a href="#services">Salle gaming</a></li>
         <li><a href="#tarifs">Tarifs</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#jeux">Jeux</a></li>
         <li><a href="#produits">Produits</a></li>
-        <li><a href="#apropos">À propos</a></li>
         <li><a href="#contact">Réserver</a></li>
       </ul>
     </div>
@@ -446,55 +496,37 @@
       <div class="services-grid">
         <div class="card">
           <h3>Espace PS4</h3>
-          <p>
-            5 postes PlayStation 4 disponibles pour les joueurs qui veulent
-            profiter de nombreuses licences dans une ambiance conviviale.
-          </p>
+          <p>5 postes PlayStation 4 disponibles dans une ambiance conviviale.</p>
           <span class="price">5 postes disponibles</span>
         </div>
 
         <div class="card">
           <h3>Espace PS5</h3>
-          <p>
-            4 postes PlayStation 5 pour jouer sur nouvelle génération avec
-            de meilleures performances et une expérience plus fluide.
-          </p>
+          <p>4 postes PlayStation 5 pour une expérience plus fluide et premium.</p>
           <span class="price">4 postes disponibles</span>
         </div>
 
         <div class="card">
           <h3>Espace PS VR2</h3>
-          <p>
-            2 postes PlayStation VR2 pour une expérience immersive en réalité
-            virtuelle, idéale pour découvrir une autre façon de jouer.
-          </p>
+          <p>2 postes PlayStation VR2 pour une immersion en réalité virtuelle.</p>
           <span class="price">2 postes disponibles</span>
         </div>
 
         <div class="card">
           <h3>Volant gaming sur PS5</h3>
-          <p>
-            Une expérience premium pour les amateurs de jeux de course
-            avec plus de réalisme et de sensations.
-          </p>
+          <p>Une expérience premium pour les amateurs de jeux de course.</p>
           <span class="price">Session premium</span>
         </div>
 
         <div class="card">
           <h3>Volant gaming sur PS4</h3>
-          <p>
-            Une option idéale pour les joueurs qui aiment les jeux automobiles
-            et souhaitent une expérience plus immersive.
-          </p>
+          <p>Une option idéale pour les joueurs qui aiment les sensations de conduite.</p>
           <span class="price">Session spéciale</span>
         </div>
 
         <div class="card">
           <h3>Réservation simple</h3>
-          <p>
-            Possibilité de venir jouer à l’heure, entre amis ou en petit groupe
-            selon la disponibilité des postes.
-          </p>
+          <p>Viens jouer à l’heure, entre amis ou en petit groupe selon la disponibilité.</p>
           <span class="price">Accès rapide</span>
         </div>
       </div>
@@ -505,10 +537,7 @@
     <div class="container">
       <div class="section-title">
         <h2>Tarifs</h2>
-        <p>
-          Des prix clairs pour tous les types de joueurs, du jeu classique
-          à l’expérience premium.
-        </p>
+        <p>Des prix clairs pour tous les types de joueurs.</p>
       </div>
 
       <div class="services-grid">
@@ -551,10 +580,85 @@
 
         <div class="card">
           <h3>Réservations</h3>
-          <p>
-            Pour les groupes, les longues sessions ou des demandes spéciales,
-            contacte-nous directement.
-          </p>
+          <p>Pour les groupes ou longues sessions, contacte-nous directement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="galerie">
+    <div class="container">
+      <div class="section-title">
+        <h2>Galerie</h2>
+        <p>Tu peux remplacer ces blocs par tes vraies photos plus tard.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <div class="gallery-placeholder">Photo salle PS4</div>
+          <div class="gallery-caption">Zone dédiée aux postes PlayStation 4.</div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-placeholder">Photo salle PS5</div>
+          <div class="gallery-caption">Espace premium PlayStation 5.</div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-placeholder">Photo PS VR2</div>
+          <div class="gallery-caption">Expérience réalité virtuelle immersive.</div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-placeholder">Photo volant gaming</div>
+          <div class="gallery-caption">Coin course automobile avec volant.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="jeux">
+    <div class="container">
+      <div class="section-title">
+        <h2>Jeux populaires</h2>
+        <p>Quelques titres appréciés par les joueurs.</p>
+      </div>
+
+      <div class="games-grid">
+        <div class="game-card">
+          <h3>EA Sports FC</h3>
+          <p>Le jeu incontournable pour les matchs entre amis.</p>
+          <span class="game-badge">Football</span>
+        </div>
+
+        <div class="game-card">
+          <h3>Mortal Kombat</h3>
+          <p>Parfait pour les affrontements rapides et intenses.</p>
+          <span class="game-badge">Combat</span>
+        </div>
+
+        <div class="game-card">
+          <h3>Call of Duty</h3>
+          <p>Action rapide pour les amateurs de tir et de compétition.</p>
+          <span class="game-badge">Action</span>
+        </div>
+
+        <div class="game-card">
+          <h3>GTA</h3>
+          <p>Une expérience libre et très demandée par de nombreux joueurs.</p>
+          <span class="game-badge">Aventure</span>
+        </div>
+
+        <div class="game-card">
+          <h3>Gran Turismo</h3>
+          <p>Idéal avec le volant gaming pour une immersion maximale.</p>
+          <span class="game-badge">Course</span>
+        </div>
+
+        <div class="game-card">
+          <h3>Beat Saber / VR</h3>
+          <p>Une expérience VR rythmée et amusante.</p>
+          <span class="game-badge">VR</span>
         </div>
       </div>
     </div>
@@ -642,13 +746,11 @@
             L’espace comprend 5 postes PS4, 4 postes PS5 et 2 postes PS VR2,
             ainsi qu’un espace avec volant gaming.
           </p>
-
           <p>
             En plus de la salle gaming, nous proposons la vente de consoles
             PlayStation 3, PlayStation 4 et PlayStation 5, de casques VR
             PlayStation et Quest, de manettes et de jeux vidéo.
           </p>
-
           <p>
             Notre objectif est d’offrir un lieu de divertissement de qualité
             et un point de vente fiable pour les passionnés de jeux vidéo.
@@ -681,9 +783,7 @@
     <div class="container">
       <div class="section-title">
         <h2>Réserver ou acheter</h2>
-        <p>
-          Remplis ce formulaire et WhatsApp s’ouvrira avec une demande déjà prête.
-        </p>
+        <p>Remplis ce formulaire et WhatsApp s’ouvrira avec une demande déjà prête.</p>
       </div>
 
       <div class="contact-wrapper">
@@ -748,7 +848,7 @@
 
   <a
     class="whatsapp-btn"
-    href="https://wa.me/2250000000000"
+    href="https://wa.me/2250576066244"
     target="_blank"
     rel="noopener noreferrer"
   >
