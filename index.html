@@ -1,178 +1,156 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GameTech Bouaké</title>
+<title>Gaming Zone</title>
 
 <style>
-body{font-family:Arial;background:#0f172a;color:white;margin:0}
-.container{width:90%;margin:auto}
-section{padding:60px 0}
-h1,h2{color:#38bdf8}
-
-.btn{padding:12px 20px;border-radius:8px;font-weight:bold;text-decoration:none}
-.btn-primary{background:#38bdf8;color:black}
-.btn-call{background:#22c55e;color:white}
-
-.small-note{color:red;font-weight:bold}
-
-.hidden{display:none}
-
-/* TABLE */
-.availability-table{
-width:100%;
-border-collapse:collapse;
-background:#111827;
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  text-align: center;
 }
-.availability-table th,.availability-table td{
-padding:12px;
-border:1px solid #1f2937;
-}
-.table-status{
-padding:6px 10px;
-border-radius:20px;
-font-weight:bold;
-}
-.table-free{color:#4ade80}
-.table-booked{color:#fbbf24}
-.table-busy{color:#f87171}
 
-/* FLOAT */
-.whatsapp-btn{
-position:fixed;bottom:20px;right:20px;
-background:#25D366;padding:12px;border-radius:50%;
+h1 {
+  color: #22c55e;
 }
-.call-btn{
-position:fixed;bottom:80px;right:20px;
-background:#22c55e;padding:12px;border-radius:50%;
+
+table {
+  width: 90%;
+  margin: auto;
+  border-collapse: collapse;
 }
+
+th, td {
+  border: 1px solid #444;
+  padding: 10px;
+}
+
+.libre {
+  color: #22c55e;
+}
+
+.occupe {
+  color: red;
+}
+
+button {
+  padding: 6px 10px;
+  background: #22c55e;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
 </style>
 </head>
 
 <body>
 
-<section>
-<div class="container">
-<h1>GameTech Bouaké</h1>
-<p>Salle gaming + vente de consoles</p>
+<h1>🎮 Gaming Center</h1>
 
-<a href="tel:2250576066244" class="btn btn-call">Appeler</a>
-<a href="#contact" class="btn btn-primary">Réserver</a>
-</div>
-</section>
+<h2>Postes disponibles</h2>
 
-<section>
-<div class="container">
-<h2>Places disponibles</h2>
-<p>PS4: 5 postes | PS5: 4 postes | VR2: 2 postes</p>
-</div>
-</section>
-
-<section id="disponibilites">
-<div class="container">
-<h2>Disponibilités</h2>
-
-<table class="availability-table">
-<tr><th>Poste</th><th>Type</th><th>Statut</th></tr>
-
-<tr><td>PS4-1</td><td>PS4</td><td><span class="table-status table-free">Libre</span></td></tr>
-<tr><td>PS4-2</td><td>PS4</td><td><span class="table-status table-busy">Occupé</span></td></tr>
-<tr><td>PS4-3</td><td>PS4</td><td><span class="table-status table-free">Libre</span></td></tr>
-<tr><td>PS4-4</td><td>PS4</td><td><span class="table-status table-booked">Réservé</span></td></tr>
-<tr><td>PS4-5</td><td>PS4</td><td><span class="table-status table-free">Libre</span></td></tr>
-
-<tr><td>PS5-1</td><td>PS5</td><td><span class="table-status table-free">Libre</span></td></tr>
-<tr><td>PS5-2</td><td>PS5</td><td><span class="table-status table-busy">Occupé</span></td></tr>
-<tr><td>PS5-3</td><td>PS5</td><td><span class="table-status table-free">Libre</span></td></tr>
-<tr><td>PS5-4</td><td>PS5</td><td><span class="table-status table-booked">Réservé</span></td></tr>
-
-<tr><td>VR2-1</td><td>VR2</td><td><span class="table-status table-booked">Réservé</span></td></tr>
-<tr><td>VR2-2</td><td>VR2</td><td><span class="table-status table-free">Libre</span></td></tr>
-
-<tr><td>VOLANT PS4</td><td>PS4</td><td><span class="table-status table-free">Libre</span></td></tr>
-<tr><td>VOLANT PS5</td><td>PS5</td><td><span class="table-status table-busy">Occupé</span></td></tr>
-
+<table id="table">
+<thead>
+<tr>
+<th>Type</th>
+<th>Nom</th>
+<th>Statut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody></tbody>
 </table>
-</div>
-</section>
 
-<section id="reseaux">
-<div class="container">
-<h2>Réseaux</h2>
+<br><br>
 
-<a href="https://instagram.com/toncompte">Instagram</a><br>
-<a href="https://tiktok.com/@toncompte">TikTok</a>
+<h2>Réserver</h2>
 
-</div>
-</section>
-
-<section id="contact">
-<div class="container">
-<h2>Réservation</h2>
-
-<p class="small-note">La réservation est confirmée après validation sur WhatsApp</p>
-
-<form id="form">
-
-<input id="name" placeholder="Nom" required>
+<input id="nom" placeholder="Nom"><br><br>
 
 <select id="service">
-<option>Réserver PS4</option>
-<option>Réserver PS5</option>
-<option>Réserver VR2</option>
-<option>Achat PS5</option>
-</select>
+<option>PS4</option>
+<option>PS5</option>
+<option>VR2</option>
+<option>VOLANT</option>
+</select><br><br>
 
-<div id="durationBox">
-<select id="duration">
+<select id="duree">
 <option>1h</option>
 <option>2h</option>
-<option>Journée complète</option>
-<option>Location</option>
-</select>
-</div>
+<option>3h</option>
+<option>journée</option>
+</select><br><br>
 
-<input type="date" id="date">
-<input type="time" id="time">
+<input id="date" type="date"><br><br>
+<input id="heure" type="time"><br><br>
 
-<textarea id="msg"></textarea>
+<textarea id="message" placeholder="Message"></textarea><br><br>
 
-<button class="btn btn-primary">WhatsApp</button>
+<button onclick="reserver()">Réserver</button>
 
-</form>
-</div>
-</section>
-
-<a class="call-btn" href="tel:2250576066244">📞</a>
-<a class="whatsapp-btn" href="https://wa.me/2250576066244">💬</a>
+<p style="color:red">
+La réservation est confirmée après validation sur WhatsApp
+</p>
 
 <script>
-const form=document.getElementById("form")
-const service=document.getElementById("service")
-const durationBox=document.getElementById("durationBox")
 
-service.addEventListener("change",()=>{
-if(service.value.includes("Achat")){
-durationBox.classList.add("hidden")
-}else{
-durationBox.classList.remove("hidden")
+const API = "COLLE TON LIEN ICI";
+
+function charger() {
+  fetch(API)
+  .then(res => res.json())
+  .then(data => {
+    let tbody = document.querySelector("#table tbody");
+    tbody.innerHTML = "";
+
+    data.forEach(p => {
+      let statutClass = p.statut === "libre" ? "libre" : "occupe";
+
+      tbody.innerHTML += `
+        <tr>
+          <td>${p.type}</td>
+          <td>${p.nom}</td>
+          <td class="${statutClass}">${p.statut}</td>
+          <td>
+            ${p.statut === "libre" ? `<button onclick="choisir('${p.type}')">Réserver</button>` : "❌"}
+          </td>
+        </tr>
+      `;
+    });
+  });
 }
-})
 
-form.addEventListener("submit",e=>{
-e.preventDefault()
+function choisir(type){
+  document.getElementById("service").value = type;
+}
 
-let text=`Bonjour
-Nom:${name.value}
-Service:${service.value}
-Durée:${duration.value}
-Date:${date.value}
-Heure:${time.value}
-Message:${msg.value}`
+function reserver(){
+  let nom = document.getElementById("nom").value;
+  let service = document.getElementById("service").value;
+  let duree = document.getElementById("duree").value;
+  let date = document.getElementById("date").value;
+  let heure = document.getElementById("heure").value;
+  let message = document.getElementById("message").value;
 
-window.open("https://wa.me/2250000000000?text="+encodeURIComponent(text))
-})
+  let texte = `Bonjour, je veux réserver:\nNom: ${nom}\nService: ${service}\nDurée: ${duree}\nDate: ${date}\nHeure: ${heure}\nMessage: ${message}`;
+
+  let whatsapp = "https://wa.me/2250576066244?text=" + encodeURIComponent(texte);
+
+  window.open(whatsapp, "_blank");
+
+  fetch(API, {
+    method: "POST",
+    body: JSON.stringify({nom, service, duree, date, heure, message})
+  });
+
+  alert("Demande envoyée !");
+}
+
+charger();
+
 </script>
 
 </body>
