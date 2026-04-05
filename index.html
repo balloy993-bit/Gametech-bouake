@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameTech Bouaké - Réparation & Accessoires Gaming</title>
+  <meta name="description" content="Réparation de consoles, entretien, accessoires gaming, installation SSD et support technique à Bouaké." />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    header {
+      background: #020617;
+      border-bottom: 1px solid #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #e2e8f0;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #38bdf8;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 90px 0 70px;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      margin-bottom: 30px;
+      font-size: 1.05rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 22px;
+      border-radius: 10px;
+      font-weight: bold;
+      display: inline-block;
+      transition: 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .btn-primary:hover {
+      background: #0ea5e9;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+    }
+
+    .btn-secondary:hover {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .hero-card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .hero-card h3 {
+      margin-bottom: 15px;
+      color: #38bdf8;
+    }
+
+    .hero-card ul {
+      list-style: none;
+    }
+
+    .hero-card li {
+      padding: 10px 0;
+      border-bottom: 1px solid #1f2937;
+      color: #e2e8f0;
+    }
+
+    .hero-card li:last-child {
+      border-bottom: none;
+    }
+
+    section {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      color: #38bdf8;
+    }
+
+    .section-title p {
+      color: #cbd5e1;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .services-grid,
+    .products-grid,
+    .stats-grid {
+      display: grid;
+      gap: 25px;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      text-align: center;
+    }
+
+    .card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 24px;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #38bdf8;
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      color: #e2e8f0;
+    }
+
+    .card p {
+      color: #cbd5e1;
+      font-size: 0.97rem;
+    }
+
+    .price {
+      display: inline-block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    .about {
+      background: #020617;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .about-box {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .about-box p {
+      color: #cbd5e1;
+      margin-bottom: 15px;
+    }
+
+    .stat-card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .stat-card h3 {
+      font-size: 2rem;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .contact-box,
+    .form-box {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .contact-box p {
+      margin-bottom: 12px;
+      color: #cbd5e1;
+    }
+
+    form {
+      display: grid;
+      gap: 15px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #f8fafc;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .message {
+      margin-top: 15px;
+      color: #86efac;
+      font-weight: bold;
+      display: none;
+    }
+
+    footer {
+      background: #020617;
+      padding: 25px 0;
+      border-top: 1px solid #1e293b;
+      text-align: center;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 900px) {
+      .hero-content,
+      .about-content,
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #020617;
+        position: absolute;
+        top: 70px;
+        right: 5%;
+        width: 220px;
+        padding: 20px;
+        border: 1px solid #1f2937;
+        border-radius: 12px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container navbar">
+      <div class="logo">GameTech Bouaké</div>
+      <div class="menu-toggle" id="menuToggle">☰</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#produits">Produits</a></li>
+        <li><a href="#apropos">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="hero" id="accueil">
+    <div class="container hero-content">
+      <div>
+        <h1>Réparation, entretien et accessoires gaming à Bouaké</h1>
+        <p>
+          Nous aidons les joueurs avec la maintenance de consoles, le nettoyage,
+          le remplacement de stockage, les accessoires et le support technique,
+          dans un cadre légal et professionnel.
+        </p>
+        <div class="btn-group">
+          <a href="#contact" class="btn btn-primary">Demander un devis</a>
+          <a href="#services" class="btn btn-secondary">Voir les services</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Services populaires</h3>
+        <ul>
+          <li>Nettoyage interne PS4 / PS5 / Xbox</li>
+          <li>Remplacement disque dur / SSD</li>
+          <li>Réduction du bruit et surchauffe</li>
+          <li>Installation accessoires gaming</li>
+          <li>Diagnostic pannes console</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nos services</h2>
+        <p>Des prestations utiles pour garder ton matériel gaming propre, stable et performant.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="card">
+          <h3>Diagnostic console</h3>
+          <p>Analyse des problèmes de démarrage, bruit, surchauffe, lenteur, lecteur ou stockage.</p>
+          <span class="price">À partir de 5 000 FCFA</span>
+        </div>
+
+        <div class="card">
+          <h3>Nettoyage complet</h3>
+          <p>Ouverture, dépoussiérage, nettoyage ventilateur et entretien général de la console.</p>
+          <span class="price">À partir de 10 000 FCFA</span>
+        </div>
+
+        <div class="card">
+          <h3>Installation SSD</h3>
+          <p>Remplacement du disque d’origine par un SSD pour améliorer les temps de chargement.</p>
+          <span class="price">À partir de 15 000 FCFA</span>
+        </div>
+
+        <div class="card">
+          <h3>Accessoires gaming</h3>
+          <p>Manettes, casques, câbles HDMI, supports, ventilateurs externes et rangement.</p>
+          <span class="price">Prix variable</span>
+        </div>
+
+        <div class="card">
+          <h3>Support boutique</h3>
+          <p>Conseils pour salle gaming, disposition des postes, sécurité électrique et entretien régulier.</p>
+          <span class="price">Sur devis</span>
+        </div>
+
+        <div class="card">
+          <h3>Assistance logicielle légale</h3>
+          <p>Mise à jour système, sauvegarde de données, transfert de profils et configuration réseau.</p>
+          <span class="price">À partir de 7 500 FCFA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="produits">
+    <div class="container">
+      <div class="section-title">
+        <h2>Produits recommandés</h2>
+        <p>Quelques articles que tu peux vendre dans une boutique gaming ou proposer à tes clients.</p>
+      </div>
+
+      <div class="products-grid">
+        <div class="card">
+          <h3>Manette PS4 / PS5</h3>
+          <p>Produit très demandé pour remplacement ou second joueur.</p>
+          <span class="price">Bonne rotation</span>
+        </div>
+
+        <div class="card">
+          <h3>Casque gaming</h3>
+          <p>Utile pour les joueurs en ligne et pour les postes gaming en salle.</p>
+          <span class="price">Bonne marge</span>
+        </div>
+
+        <div class="card">
+          <h3>SSD 500 Go / 1 To</h3>
+          <p>Pour améliorer la vitesse de chargement et moderniser une console ancienne.</p>
+          <span class="price">Produit premium</span>
+        </div>
+
+        <div class="card">
+          <h3>Support ventilé</h3>
+          <p>Accessoire complémentaire pour réduire la chaleur dans les environnements chauds.</p>
+          <span class="price">Vente facile</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="apropos">
+    <div class="container">
+      <div class="section-title">
+        <h2>Pourquoi nous choisir</h2>
+        <p>Un service clair, local et centré sur l’entretien légal et durable du matériel gaming.</p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-box">
+          <p>
+            GameTech Bouaké est un concept de service dédié aux consoles et accessoires gaming.
+            L’idée est de proposer une alternative sérieuse: réparation, entretien, optimisation
+            matérielle et vente d’accessoires utiles.
+          </p>
+          <p>
+            Le but n’est pas de contourner les protections des appareils, mais de prolonger leur durée
+            de vie, améliorer leur confort d’utilisation et aider les joueurs à mieux entretenir leur matériel.
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>100%</h3>
+            <p>services légaux</p>
+          </div>
+          <div class="stat-card">
+            <h3>24h</h3>
+            <p>réponse rapide</p>
+          </div>
+          <div class="stat-card">
+            <h3>Pro</h3>
+            <p>approche sérieuse</p>
+          </div>
+          <div class="stat-card">
+            <h3>Local</h3>
+            <p>service de proximité</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <p>Un projet de boutique gaming, une console à vérifier ou un devis à demander ? Écris-nous.</p>
+      </div>
+
+      <div class="contact-wrapper">
+        <div class="contact-box">
+          <p><strong>Entreprise :</strong> GameTech Bouaké</p>
+          <p><strong>Ville :</strong> Bouaké</p>
+          <p><strong>Téléphone :</strong> +225 00 00 00 00 00</p>
+          <p><strong>Email :</strong> contact@gametechbouake.com</p>
+          <p><strong>Horaires :</strong> Lundi au Samedi, 9h à 19h</p>
+        </div>
+
+        <div class="form-box">
+          <form id="contactForm">
+            <input type="text" id="name" placeholder="Ton nom" required />
+            <input type="email" id="email" placeholder="Ton email" required />
+            <select id="service" required>
+              <option value="">Choisir un service</option>
+              <option>Diagnostic console</option>
+              <option>Nettoyage complet</option>
+              <option>Installation SSD</option>
+              <option>Accessoires gaming</option>
+              <option>Support boutique</option>
+            </select>
+            <textarea id="messageText" placeholder="Explique ton besoin..." required></textarea>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+          </form>
+          <div class="message" id="successMessage">
+            Message envoyé localement. Branche un vrai backend pour recevoir les demandes par email.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 GameTech Bouaké - Site vitrine gaming et services légaux.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+
+    const form = document.getElementById("contactForm");
+    const successMessage = document.getElementById("successMessage");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const service = document.getElementById("service").value.trim();
+      const messageText = document.getElementById("messageText").value.trim();
+
+      if (!name || !email || !service || !messageText) {
+        alert("Merci de remplir tous les champs.");
+        return;
+      }
+
+      console.log("Nouveau message :", {
+        name,
+        email,
+        service,
+        message: messageText
+      });
+
+      successMessage.style.display = "block";
+      form.reset();
+
+      setTimeout(() => {
+        successMessage.style.display = "none";
+      }, 4000);
+    });
+  </script>
+</body>
+</html>
