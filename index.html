@@ -1,171 +1,562 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Gaming Center Bouaké</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaming Center Bouaké</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-<style>
-body {
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
-  text-align: center;
-}
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: #f8fafc;
+    }
 
-h1 {
-  color: #22c55e;
-}
+    .container {
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-table {
-  width: 90%;
-  margin: auto;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
+    header {
+      background: #020617;
+      border-bottom: 1px solid #1e293b;
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-th, td {
-  border: 1px solid #444;
-  padding: 10px;
-}
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-.libre {
-  color: #22c55e;
-}
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #22c55e;
+    }
 
-.occupe {
-  color: red;
-}
+    .top-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
-button {
-  background: #22c55e;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
-}
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
 
-.section {
-  margin-top: 40px;
-}
+    .btn-call {
+      background: #22c55e;
+      color: white;
+    }
 
-.red {
-  color: red;
-}
-</style>
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .btn-primary {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    section {
+      padding: 42px 0;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #22c55e;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #cbd5e1;
+      max-width: 800px;
+      margin: 0 auto 24px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .card h3 {
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      color: #22c55e;
+      font-weight: 700;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #1f2937;
+      text-align: left;
+    }
+
+    th {
+      background: #020617;
+      color: #38bdf8;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .status-libre {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+
+    .status-reserve {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .status-occupe {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: white;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .note {
+      text-align: center;
+      color: #ef4444;
+      font-weight: 700;
+      margin-top: 14px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .socials {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      color: #38bdf8;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .floating {
+      position: fixed;
+      right: 18px;
+      z-index: 999;
+      color: white;
+      padding: 14px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    .floating-call {
+      bottom: 78px;
+      background: #22c55e;
+    }
+
+    .floating-wa {
+      bottom: 18px;
+      background: #25D366;
+    }
+
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <div class="container topbar">
+      <div class="logo">🎮 Gaming Center Bouaké</div>
+      <div class="top-actions">
+        <a class="btn btn-call" href="tel:2250000000">Appeler</a>
+        <a class="btn btn-whatsapp" href="https://wa.me/2250000000000" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+    </div>
+  </header>
 
-<h1>🎮 Gaming Center</h1>
+  <section>
+    <div class="container">
+      <h1>Salle gaming et vente de consoles</h1>
+      <p class="subtitle">
+        5 postes PS4, 4 postes PS5, 2 postes PS VR2, volant gaming, vente de PS3, PS4, PS5,
+        casques VR, manettes et jeux.
+      </p>
+    </div>
+  </section>
 
-<!-- 🔥 SERVICES -->
-<div class="section">
-<h2>Nos services</h2>
-<p>PS4 - PS5 - VR2 - Volant Gaming</p>
-</div>
+  <section>
+    <div class="container">
+      <h2>Nos services</h2>
+      <div class="grid grid-4">
+        <div class="card">
+          <h3>PS4</h3>
+          <p>5 postes disponibles pour jouer seul ou entre amis.</p>
+        </div>
+        <div class="card">
+          <h3>PS5</h3>
+          <p>4 postes nouvelle génération pour une expérience premium.</p>
+        </div>
+        <div class="card">
+          <h3>PS VR2</h3>
+          <p>2 postes de réalité virtuelle pour une expérience immersive.</p>
+        </div>
+        <div class="card">
+          <h3>Volant gaming</h3>
+          <p>Disponible sur PS4 et PS5 selon l’occupation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- 💰 PRIX -->
-<div class="section">
-<h2>Tarifs</h2>
-<p>PS5 : 1500F (1h) | 2500F (2h)</p>
-<p>PS4 : 800F (1h) | 1500F (2h)</p>
-<p>VR2 : 5000F (3h)</p>
-<p>Volant : 2000F PS5 | 1500F PS4</p>
-</div>
+  <section>
+    <div class="container">
+      <h2>Tarifs</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>PS4</h3>
+          <p class="price">1h : 800 FCFA</p>
+          <p class="price">2h : 1500 FCFA</p>
+          <p>Journée complète : sur demande</p>
+          <p>Location : sur demande</p>
+        </div>
+        <div class="card">
+          <h3>PS5</h3>
+          <p class="price">1h : 1500 FCFA</p>
+          <p class="price">2h : 2500 FCFA</p>
+          <p>Journée complète : sur demande</p>
+          <p>Location : sur demande</p>
+        </div>
+        <div class="card">
+          <h3>PS VR2</h3>
+          <p class="price">3h : 5000 FCFA</p>
+          <p>Journée complète : sur demande</p>
+          <p>Location : sur demande</p>
+        </div>
+        <div class="card">
+          <h3>Volant PS5</h3>
+          <p class="price">1h : 2000 FCFA</p>
+          <p>Journée complète : sur demande</p>
+        </div>
+        <div class="card">
+          <h3>Volant PS4</h3>
+          <p class="price">1h : 1500 FCFA</p>
+          <p>Journée complète : sur demande</p>
+        </div>
+        <div class="card">
+          <h3>Vente</h3>
+          <p>PS3, PS4, PS5, casques VR, manettes et jeux selon stock.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- 📊 TABLEAU -->
-<div class="section">
-<h2>Postes disponibles</h2>
+  <section>
+    <div class="container">
+      <h2>Postes disponibles</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Nom</th>
+              <th>Statut</th>
+              <th>Date</th>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Client</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr>
+              <td colspan="8">Chargement...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-<table id="table">
-<thead>
-<tr>
-<th>Type</th>
-<th>Nom</th>
-<th>Statut</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
+  <section id="contact">
+    <div class="container">
+      <h2 style="text-align:center;">Réserver</h2>
 
-<!-- 📝 FORMULAIRE -->
-<div class="section">
-<h2>Réserver</h2>
+      <form id="reservationForm">
+        <input id="nom" placeholder="Nom" required />
 
-<input id="nom" placeholder="Nom"><br><br>
+        <select id="service" required>
+          <option value="">Choisir un service ou produit</option>
+          <option>Réserver PS4</option>
+          <option>Réserver PS5</option>
+          <option>Réserver VR2</option>
+          <option>Réserver Volant PS4</option>
+          <option>Réserver Volant PS5</option>
+          <option>Achat PS3</option>
+          <option>Achat PS4</option>
+          <option>Achat PS5</option>
+          <option>Achat Casque VR</option>
+          <option>Achat Manette</option>
+          <option>Achat Jeu</option>
+        </select>
 
-<select id="service">
-<option>PS4</option>
-<option>PS5</option>
-<option>VR2</option>
-</select><br><br>
+        <div id="durationBox">
+          <select id="duree">
+            <option value="">Choisir une durée</option>
+            <option>1h</option>
+            <option>2h</option>
+            <option>3h</option>
+            <option>Journée complète</option>
+            <option>Location</option>
+          </select>
+        </div>
 
-<select id="duree">
-<option>1h</option>
-<option>2h</option>
-<option>3h</option>
-<option>Journée</option>
-</select><br><br>
+        <input type="date" id="date" required />
+        <input type="time" id="heure" required />
+        <textarea id="message" placeholder="Message"></textarea>
 
-<input type="date" id="date"><br><br>
-<input type="time" id="heure"><br><br>
+        <button class="btn btn-primary" type="submit">Réserver</button>
+      </form>
 
-<textarea id="message" placeholder="Message"></textarea><br><br>
+      <p class="note">La réservation est confirmée après validation sur WhatsApp</p>
+    </div>
+  </section>
 
-<button onclick="reserver()">Réserver</button>
+  <section>
+    <div class="container">
+      <h2>Instagram / TikTok</h2>
+      <div class="socials">
+        <a class="social-link" href="https://instagram.com/toncompte" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="social-link" href="https://tiktok.com/@toncompte" target="_blank" rel="noopener noreferrer">TikTok</a>
+      </div>
+    </div>
+  </section>
 
-<p class="red">La réservation est confirmée après validation sur WhatsApp</p>
-</div>
+  <a class="floating floating-call" href="tel:2250576066244">Appeler</a>
+  <a class="floating floating-wa" href="https://wa.me/2250576066244" target="_blank" rel="noopener noreferrer">WhatsApp</a>
 
-<script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzAkkWGNjVYjy5732R11ARmyT80rHsbwvIY2TAs_CLAYQbrxctuo8jyOfFFn9C_MiGzeA/exec";
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbzAkkWGNjVYjy5732R11ARmyT80rHsbwvIY2TAs_CLAYQbrxctuo8jyOfFFn9C_MiGzeA/exec";
+    const WHATSAPP_NUMBER = "2250576066244";
 
-async function charger() {
-  const res = await fetch(API_URL);
-  const data = await res.json();
+    function normalizeItem(item) {
+      return {
+        type: item.type || item.TYPE || "",
+        nom: item.nom || item.NOM || "",
+        statut: item.statut || item.STATUT || "",
+        date: item.date || item.DATE || "",
+        debut: item.debut || item.DEBUT || "",
+        fin: item.fin || item.FIN || "",
+        client: item.client || item.CLIENT || ""
+      };
+    }
 
-  const table = document.querySelector("#table tbody");
-  table.innerHTML = "";
+    function statusClass(status) {
+      const s = String(status).toLowerCase();
+      if (s === "libre") return "status-libre";
+      if (s === "réservé" || s === "reserve" || s === "réservé ") return "status-reserve";
+      return "status-occupe";
+    }
 
-  data.forEach(p => {
-    const tr = document.createElement("tr");
+    function isPurchase(value) {
+      return value.toLowerCase().includes("achat");
+    }
 
-    tr.innerHTML = `
-      <td>${p.type}</td>
-      <td>${p.nom}</td>
-      <td class="${p.statut === 'libre' ? 'libre' : 'occupe'}">${p.statut}</td>
-      <td><button onclick="selectPoste('${p.nom}')">Réserver</button></td>
-    `;
+    async function chargerPostes() {
+      const tableBody = document.getElementById("tableBody");
+      tableBody.innerHTML = `<tr><td colspan="8">Chargement...</td></tr>`;
 
-    table.appendChild(tr);
-  });
-}
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
 
-function selectPoste(nom) {
-  document.getElementById("message").value = "Je veux réserver " + nom;
-}
+        tableBody.innerHTML = "";
 
-async function reserver() {
-  const data = {
-    nom: document.getElementById("nom").value,
-    service: document.getElementById("service").value,
-    duree: document.getElementById("duree").value,
-    date: document.getElementById("date").value,
-    heure: document.getElementById("heure").value,
-    message: document.getElementById("message").value
-  };
+        data.map(normalizeItem).forEach((p) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${p.type || "-"}</td>
+            <td>${p.nom || "-"}</td>
+            <td><span class="status ${statusClass(p.statut)}">${p.statut || "-"}</span></td>
+            <td>${p.date || "-"}</td>
+            <td>${p.debut || "-"}</td>
+            <td>${p.fin || "-"}</td>
+            <td>${p.client || "-"}</td>
+            <td><button class="btn btn-primary" type="button" onclick="selectPoste('${(p.nom || "").replace(/'/g, "\\'")}')">Réserver</button></td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      } catch (err) {
+        tableBody.innerHTML = `<tr><td colspan="8">Erreur de chargement</td></tr>`;
+        console.error(err);
+      }
+    }
 
-  await fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  });
+    function selectPoste(nom) {
+      document.getElementById("message").value = `Je veux réserver ${nom}`;
+      document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+    }
 
-  alert("Réservation envoyée !");
-}
+    const serviceEl = document.getElementById("service");
+    const durationBox = document.getElementById("durationBox");
+    const dureeEl = document.getElementById("duree");
 
-charger();
-</script>
+    function updateDuration() {
+      if (isPurchase(serviceEl.value)) {
+        durationBox.classList.add("hidden");
+        dureeEl.value = "";
+      } else {
+        durationBox.classList.remove("hidden");
+      }
+    }
 
+    serviceEl.addEventListener("change", updateDuration);
+    updateDuration();
+
+    document.getElementById("reservationForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const nom = document.getElementById("nom").value.trim();
+      const service = document.getElementById("service").value.trim();
+      const duree = document.getElementById("duree").value.trim();
+      const date = document.getElementById("date").value;
+      const heure = document.getElementById("heure").value;
+      const message = document.getElementById("message").value.trim();
+
+      if (!nom || !service || !date || !heure) {
+        alert("Merci de remplir les champs obligatoires.");
+        return;
+      }
+
+      if (!isPurchase(service) && !duree) {
+        alert("Merci de choisir une durée.");
+        return;
+      }
+
+      const payload = {
+        nom,
+        service,
+        duree,
+        date,
+        heure,
+        message
+      };
+
+      try {
+        await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.error(err);
+      }
+
+      let text =
+        "Bonjour Gaming Center Bouaké,%0A%0A" +
+        "Nom : " + encodeURIComponent(nom) + "%0A" +
+        "Service : " + encodeURIComponent(service) + "%0A";
+
+      if (!isPurchase(service)) {
+        text += "Durée : " + encodeURIComponent(duree) + "%0A";
+      }
+
+      text +=
+        "Date : " + encodeURIComponent(date) + "%0A" +
+        "Heure : " + encodeURIComponent(heure) + "%0A" +
+        "Message : " + encodeURIComponent(message);
+
+      window.open(`https://wa.me/${2250576066244}?text=${text}`, "_blank");
+    });
+
+    chargerPostes();
+  </script>
 </body>
 </html>
