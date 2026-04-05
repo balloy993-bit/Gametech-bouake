@@ -316,6 +316,29 @@
       resize: vertical;
     }
 
+    .small-note {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-top: 5px;
+    }
+
+    .whatsapp-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #25D366;
+      color: white;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: bold;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+    }
+
+    .whatsapp-btn:hover {
+      opacity: 0.9;
+    }
+
     footer {
       background: #020617;
       padding: 25px 0;
@@ -357,6 +380,12 @@
       .menu-toggle {
         display: block;
       }
+
+      .whatsapp-btn {
+        right: 12px;
+        bottom: 12px;
+        padding: 12px 14px;
+      }
     }
   </style>
 </head>
@@ -371,7 +400,7 @@
         <li><a href="#tarifs">Tarifs</a></li>
         <li><a href="#produits">Produits</a></li>
         <li><a href="#apropos">À propos</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact">Réserver</a></li>
       </ul>
     </div>
   </header>
@@ -387,7 +416,7 @@
         </p>
         <div class="btn-group">
           <a href="#tarifs" class="btn btn-primary">Voir les tarifs</a>
-          <a href="#contact" class="btn btn-secondary">Nous contacter</a>
+          <a href="#contact" class="btn btn-secondary">Réserver maintenant</a>
         </div>
       </div>
 
@@ -544,74 +573,55 @@
       <div class="products-grid">
         <div class="card">
           <h3>PlayStation 3</h3>
-          <p>
-            Console disponible selon le stock pour les amateurs de jeux classiques.
-          </p>
+          <p>Console disponible selon le stock pour les amateurs de jeux classiques.</p>
           <span class="price">Disponible selon stock</span>
         </div>
 
         <div class="card">
           <h3>PlayStation 4</h3>
-          <p>
-            Console très demandée avec un grand choix de jeux et d’accessoires.
-          </p>
+          <p>Console très demandée avec un grand choix de jeux et d’accessoires.</p>
           <span class="price">Disponible selon stock</span>
         </div>
 
         <div class="card">
           <h3>PlayStation 5</h3>
-          <p>
-            Console nouvelle génération pour les joueurs qui veulent puissance
-            et fluidité.
-          </p>
+          <p>Console nouvelle génération pour les joueurs qui veulent puissance et fluidité.</p>
           <span class="price">Disponible selon stock</span>
         </div>
 
         <div class="card">
           <h3>Casques VR PlayStation</h3>
-          <p>
-            Casques de réalité virtuelle PlayStation pour une immersion plus poussée.
-          </p>
+          <p>Casques de réalité virtuelle PlayStation pour une immersion plus poussée.</p>
           <span class="price">Selon modèle</span>
         </div>
 
         <div class="card">
           <h3>Casques Quest</h3>
-          <p>
-            Casques VR Quest disponibles selon l’arrivage et les modèles.
-          </p>
+          <p>Casques VR Quest disponibles selon l’arrivage et les modèles.</p>
           <span class="price">Selon modèle</span>
         </div>
 
         <div class="card">
           <h3>Manettes</h3>
-          <p>
-            Manettes pour différentes consoles, selon la disponibilité en stock.
-          </p>
+          <p>Manettes pour différentes consoles, selon la disponibilité en stock.</p>
           <span class="price">Prix variable</span>
         </div>
 
         <div class="card">
           <h3>Jeux PS3</h3>
-          <p>
-            Sélection de jeux PlayStation 3 selon les arrivages.
-          </p>
+          <p>Sélection de jeux PlayStation 3 selon les arrivages.</p>
           <span class="price">Selon titre</span>
         </div>
 
         <div class="card">
           <h3>Jeux PS4</h3>
-          <p>
-            Jeux variés pour PlayStation 4, pour plusieurs styles de joueurs.
-          </p>
+          <p>Jeux variés pour PlayStation 4, pour plusieurs styles de joueurs.</p>
           <span class="price">Selon titre</span>
         </div>
 
         <div class="card">
           <h3>Jeux PS5</h3>
-          <p>
-            Jeux nouvelle génération disponibles selon le stock.
-          </p>
+          <p>Jeux nouvelle génération disponibles selon le stock.</p>
           <span class="price">Selon titre</span>
         </div>
       </div>
@@ -622,9 +632,7 @@
     <div class="container">
       <div class="section-title">
         <h2>À propos</h2>
-        <p>
-          Un lieu moderne à Bouaké pour jouer et acheter du matériel gaming.
-        </p>
+        <p>Un lieu moderne à Bouaké pour jouer et acheter du matériel gaming.</p>
       </div>
 
       <div class="about-content">
@@ -632,8 +640,7 @@
           <p>
             GameTech Bouaké est une salle gaming moderne dédiée aux joueurs.
             L’espace comprend 5 postes PS4, 4 postes PS5 et 2 postes PS VR2,
-            ainsi qu’un espace avec volant gaming. Le tout dans un espace 
-            climatisé avec des disigns digne d'un salle gaming.
+            ainsi qu’un espace avec volant gaming.
           </p>
 
           <p>
@@ -673,9 +680,9 @@
   <section id="contact">
     <div class="container">
       <div class="section-title">
-        <h2>Contact</h2>
+        <h2>Réserver ou acheter</h2>
         <p>
-          Pour une réservation, une information ou un achat, contacte-nous directement sur WhatsApp.
+          Remplis ce formulaire et WhatsApp s’ouvrira avec une demande déjà prête.
         </p>
       </div>
 
@@ -690,6 +697,7 @@
             Samedi et Dimanche : 10h à 23h30
           </p>
           <p><strong>Activité :</strong> Salle gaming, réservation, vente de consoles, accessoires et jeux</p>
+          <p class="small-note">La réservation est confirmée après validation sur WhatsApp.</p>
         </div>
 
         <div class="form-box">
@@ -697,7 +705,7 @@
             <input type="text" id="name" placeholder="Ton nom" required />
 
             <select id="service" required>
-              <option value="">Choisir une demande</option>
+              <option value="">Choisir un service ou produit</option>
               <option>Réserver un poste PS4</option>
               <option>Réserver un poste PS5</option>
               <option>Réserver un poste PS VR2</option>
@@ -712,9 +720,20 @@
               <option>Demande d'information</option>
             </select>
 
+            <select id="duration" required>
+              <option value="">Choisir une durée</option>
+              <option>1 heure</option>
+              <option>2 heures</option>
+              <option>3 heures</option>
+              <option>Autre durée</option>
+            </select>
+
+            <input type="date" id="bookingDate" required />
+            <input type="time" id="bookingTime" required />
+
             <textarea id="messageText" placeholder="Explique ton besoin..." required></textarea>
 
-            <button type="submit" class="btn btn-primary">Contacter sur WhatsApp</button>
+            <button type="submit" class="btn btn-primary">Envoyer la réservation sur WhatsApp</button>
           </form>
         </div>
       </div>
@@ -726,6 +745,15 @@
       <p>© 2026 GameTech Bouaké - Salle gaming et vente de consoles et accessoires.</p>
     </div>
   </footer>
+
+  <a
+    class="whatsapp-btn"
+    href="https://wa.me/2250000000000"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    WhatsApp
+  </a>
 
   <script>
     const menuToggle = document.getElementById("menuToggle");
@@ -742,22 +770,30 @@
 
       const name = document.getElementById("name").value.trim();
       const service = document.getElementById("service").value.trim();
+      const duration = document.getElementById("duration").value.trim();
+      const bookingDate = document.getElementById("bookingDate").value;
+      const bookingTime = document.getElementById("bookingTime").value;
       const messageText = document.getElementById("messageText").value.trim();
 
-      if (!name || !service || !messageText) {
+      if (!name || !service || !duration || !bookingDate || !bookingTime || !messageText) {
         alert("Merci de remplir tous les champs.");
         return;
       }
 
-      const phoneNumber = "225000000000";
+      const phoneNumber = "2250576066244";
 
-      const whatsappMessage =
-        "Bonjour GameTech Bouaké,%0A%0A" +
-        "Nom : " + encodeURIComponent(name) + "%0A" +
-        "Demande : " + encodeURIComponent(service) + "%0A" +
-        "Message : " + encodeURIComponent(messageText);
+      const message =
+        "Bonjour GameTech Bouaké,\n\n" +
+        "Je souhaite faire une réservation / demande.\n\n" +
+        "Nom : " + name + "\n" +
+        "Service / Produit : " + service + "\n" +
+        "Durée : " + duration + "\n" +
+        "Date : " + bookingDate + "\n" +
+        "Heure : " + bookingTime + "\n" +
+        "Message : " + messageText;
 
-      const whatsappURL = "https://wa.me/" + phoneNumber + "?text=" + whatsappMessage;
+      const whatsappURL =
+        "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
 
       window.open(whatsappURL, "_blank");
     });
