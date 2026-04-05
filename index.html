@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GameTech Bouaké - Salle Gaming et Vente de Consoles</title>
-  <meta name="description" content="Salle gaming à Bouaké avec PS4, PS5, PS VR2, volant gaming et vente de consoles, casques VR, manettes et jeux vidéo." />
+  <meta
+    name="description"
+    content="Salle gaming à Bouaké avec PS4, PS5, PS VR2, volant gaming et vente de consoles, casques VR, manettes et jeux vidéo."
+  />
   <style>
     * {
       margin: 0;
@@ -311,13 +314,6 @@
     textarea {
       min-height: 130px;
       resize: vertical;
-    }
-
-    .message {
-      margin-top: 15px;
-      color: #86efac;
-      font-weight: bold;
-      display: none;
     }
 
     footer {
@@ -636,7 +632,8 @@
           <p>
             GameTech Bouaké est une salle gaming moderne dédiée aux joueurs.
             L’espace comprend 5 postes PS4, 4 postes PS5 et 2 postes PS VR2,
-            ainsi qu’un espace avec volant gaming.
+            ainsi qu’un espace avec volant gaming. Le tout dans un espace 
+            climatisé avec des disigns digne d'un salle gaming.
           </p>
 
           <p>
@@ -678,7 +675,7 @@
       <div class="section-title">
         <h2>Contact</h2>
         <p>
-          Pour une réservation, une information ou un achat, contacte-nous directement.
+          Pour une réservation, une information ou un achat, contacte-nous directement sur WhatsApp.
         </p>
       </div>
 
@@ -687,18 +684,18 @@
           <p><strong>Entreprise :</strong> GameTech Bouaké</p>
           <p><strong>Ville :</strong> Bouaké</p>
           <p><strong>Téléphone :</strong> +225 00 00 00 00 00</p>
-          <p><strong>Email :</strong> contact@gametechbouake.com</p>
           <p>
             <strong>Horaires :</strong><br>
             Lundi à Vendredi : 08h à 22h<br>
             Samedi et Dimanche : 10h à 23h30
           </p>
+          <p><strong>Activité :</strong> Salle gaming, réservation, vente de consoles, accessoires et jeux</p>
         </div>
 
         <div class="form-box">
-          <form id="contactForm">
+          <form id="whatsappForm">
             <input type="text" id="name" placeholder="Ton nom" required />
-            <input type="email" id="email" placeholder="Ton email" required />
+
             <select id="service" required>
               <option value="">Choisir une demande</option>
               <option>Réserver un poste PS4</option>
@@ -712,13 +709,13 @@
               <option>Achat de casque VR</option>
               <option>Achat de manette</option>
               <option>Achat de jeu</option>
+              <option>Demande d'information</option>
             </select>
+
             <textarea id="messageText" placeholder="Explique ton besoin..." required></textarea>
-            <button type="submit" class="btn btn-primary">Envoyer</button>
+
+            <button type="submit" class="btn btn-primary">Contacter sur WhatsApp</button>
           </form>
-          <div class="message" id="successMessage">
-            Message enregistré localement. Ajoute ensuite WhatsApp ou un vrai système email pour recevoir les demandes.
-          </div>
         </div>
       </div>
     </div>
@@ -738,35 +735,31 @@
       navLinks.classList.toggle("active");
     });
 
-    const form = document.getElementById("contactForm");
-    const successMessage = document.getElementById("successMessage");
+    const form = document.getElementById("whatsappForm");
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
       const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
       const service = document.getElementById("service").value.trim();
       const messageText = document.getElementById("messageText").value.trim();
 
-      if (!name || !email || !service || !messageText) {
+      if (!name || !service || !messageText) {
         alert("Merci de remplir tous les champs.");
         return;
       }
 
-      console.log("Nouvelle demande :", {
-        name,
-        email,
-        service,
-        message: messageText
-      });
+      const phoneNumber = "225000000000";
 
-      successMessage.style.display = "block";
-      form.reset();
+      const whatsappMessage =
+        "Bonjour GameTech Bouaké,%0A%0A" +
+        "Nom : " + encodeURIComponent(name) + "%0A" +
+        "Demande : " + encodeURIComponent(service) + "%0A" +
+        "Message : " + encodeURIComponent(messageText);
 
-      setTimeout(() => {
-        successMessage.style.display = "none";
-      }, 4000);
+      const whatsappURL = "https://wa.me/" + phoneNumber + "?text=" + whatsappMessage;
+
+      window.open(whatsappURL, "_blank");
     });
   </script>
 </body>
