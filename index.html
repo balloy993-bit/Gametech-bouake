@@ -1,197 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Gaming Center Bouaké</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  color: #00ffcc;
+}
+
+table {
+  width: 90%;
+  margin: auto;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #333;
+  padding: 10px;
+}
+
+.status-libre { color: #00ff00; }
+.status-occupe { color: red; }
+.status-reserve { color: orange; }
+
+button {
+  padding: 8px;
+  background: #00ffcc;
+  border: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+input, select, textarea {
+  margin: 5px;
+  padding: 8px;
+  width: 250px;
+}
+
+.hidden { display: none; }
+
+.warning {
+  color: red;
+  font-weight: bold;
+}
+
+.call-btn {
+  background: green;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+  display: inline-block;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎮 Gaming Center Bouaké</h1>
+
+<a class="call-btn" href="tel:+2250576066244">📞 Appeler</a>
+
+<h2>Postes disponibles</h2>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Nom</th>
+<th>Statut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="tableBody"></tbody>
+</table>
+
+<h2>Réserver</h2>
+
+<form id="form">
+
+<input id="nom" placeholder="Nom"><br>
+
+<select id="service">
+<option value="PS4">PS4</option>
+<option value="PS5">PS5</option>
+<option value="VR2">VR2</option>
+<option value="ACHAT">Achat console / accessoires</option>
+</select><br>
+
+<div id="durationBox">
+<select id="duree">
+<option value="1h">1h</option>
+<option value="2h">2h</option>
+<option value="journée">Journée complète</option>
+<option value="location">Location</option>
+</select>
+</div><br>
+
+<input type="date" id="date"><br>
+<input type="time" id="heure"><br>
+
+<textarea id="message" placeholder="Message"></textarea><br>
+
+<input type="text" id="website" class="hidden">
+
+<button type="button" onclick="reserver()">Réserver</button>
+
+</form>
+
+<p class="warning">
+La réservation est confirmée après validation sur WhatsApp
+</p>
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const API_URL = "https://script.google.com/macros/s/AKfycbzAkkWGNjVYjy5732R11ARmyT80rHsbwvIY2TAs_CLAYQbrxctuo8jyOfFFn9C_MiGzeA/exec";
-  const WHATSAPP_NUMBER = "2250576066244";
 
-  const formStartedAt = Date.now();
+const API_URL = "https://script.google.com/macros/s/AKfycbzAkkWGNjVYjy5732R11ARmyT80rHsbwvIY2TAs_CLAYQbrxctuo8jyOfFFn9C_MiGzeA/exec";
+const WHATSAPP = "2250576066244";
 
-  const tableBody = document.getElementById("tableBody");
-  const form = document.getElementById("reservationForm");
+let postes = [];
 
-  const nomEl = document.getElementById("nom");
-  const serviceEl = document.getElementById("service");
-  const dureeEl = document.getElementById("duree");
-  const dateEl = document.getElementById("date");
-  const heureEl = document.getElementById("heure");
-  const messageEl = document.getElementById("message");
-  const websiteEl = document.getElementById("website");
-  const durationBox = document.getElementById("durationBox");
+async function load() {
 
-  function normalizeItem(item) {
-    return {
-      type: item.type || item.TYPE || "",
-      nom: item.nom || item.NOM || "",
-      statut: item.statut || item.STATUT || "",
-      date: item.date || item.DATE || "",
-      debut: item.debut || item.DEBUT || "",
-      fin: item.fin || item.FIN || ""
-    };
-  }
+  const table = document.getElementById("tableBody");
 
-  function statusClass(status) {
-    const s = String(status || "").toLowerCase().trim();
-    if (s === "libre") return "status-libre";
-    if (s === "réservé" || s === "reserve" || s === "reservé") return "status-reserve";
-    return "status-occupe";
-  }
+  try {
+    const res = await fetch(API_URL);
+    postes = await res.json();
 
-  function isPurchase(value) {
-    const v = String(value || "").toLowerCase();
-    return v.includes("achat");
-  }
+    table.innerHTML = "";
 
-  function updateDurationVisibility() {
-    if (!serviceEl || !durationBox || !dureeEl) return;
+    postes.forEach(p => {
 
-    if (isPurchase(serviceEl.value)) {
-      durationBox.classList.add("hidden");
-      dureeEl.value = "";
-      dureeEl.required = false;
-    } else {
-      durationBox.classList.remove("hidden");
-      dureeEl.required = true;
-    }
-  }
+      let statusClass = "status-libre";
+      let disabled = "";
 
-  async function chargerPostes() {
-    if (!tableBody) return;
-
-    tableBody.innerHTML = "<tr><td colspan='7'>Chargement...</td></tr>";
-
-    try {
-      const response = await fetch(API_URL, { method: "GET" });
-      const data = await response.json();
-
-      if (!Array.isArray(data)) {
-        tableBody.innerHTML = "<tr><td colspan='7'>Aucune donnée reçue</td></tr>";
-        return;
+      if (p.statut === "occupé") {
+        statusClass = "status-occupe";
+        disabled = "disabled";
       }
 
-      tableBody.innerHTML = "";
-
-      data.map(normalizeItem).forEach((p) => {
-        const tr = document.createElement("tr");
-
-        const safeNom = String(p.nom || "").replace(/'/g, "\\'");
-
-        tr.innerHTML = `
-          <td>${p.type || "-"}</td>
-          <td>${p.nom || "-"}</td>
-          <td><span class="status ${statusClass(p.statut)}">${p.statut || "-"}</span></td>
-          <td>${p.date || "-"}</td>
-          <td>${p.debut || "-"}</td>
-          <td>${p.fin || "-"}</td>
-          <td><button type="button" class="btn btn-primary" onclick="selectPoste('${safeNom}')">Réserver</button></td>
-        `;
-
-        tableBody.appendChild(tr);
-      });
-
-      if (data.length === 0) {
-        tableBody.innerHTML = "<tr><td colspan='7'>Aucun poste trouvé</td></tr>";
+      if (p.statut === "réservé") {
+        statusClass = "status-reserve";
+        disabled = "disabled";
       }
-    } catch (error) {
-      console.error("Erreur chargement postes :", error);
-      tableBody.innerHTML = "<tr><td colspan='7'>Erreur de chargement</td></tr>";
-    }
+
+      const row = `
+      <tr>
+        <td>${p.type || "-"}</td>
+        <td>${p.nom || "-"}</td>
+        <td class="${statusClass}">${p.statut || "-"}</td>
+        <td>
+          <button ${disabled} onclick="selectPoste('${p.nom}')">
+            ${disabled ? "Complet" : "Réserver"}
+          </button>
+        </td>
+      </tr>
+      `;
+
+      table.innerHTML += row;
+    });
+
+  } catch(e) {
+    table.innerHTML = "<tr><td colspan='4'>Erreur chargement</td></tr>";
   }
+}
 
-  window.selectPoste = function (nom) {
-    if (messageEl) {
-      messageEl.value = "Je veux réserver " + nom;
-    }
-    if (form) {
-      form.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+function selectPoste(nom) {
+  document.getElementById("message").value = "Je veux réserver " + nom;
+}
 
-  async function envoyerReservation(e) {
-    if (e) e.preventDefault();
-
-    const nom = nomEl ? nomEl.value.trim() : "";
-    const service = serviceEl ? serviceEl.value.trim() : "";
-    const duree = dureeEl ? dureeEl.value.trim() : "";
-    const date = dateEl ? dateEl.value : "";
-    const heure = heureEl ? heureEl.value : "";
-    const message = messageEl ? messageEl.value.trim() : "";
-    const website = websiteEl ? websiteEl.value.trim() : "";
-
-    const elapsedSeconds = (Date.now() - formStartedAt) / 1000;
-
-    if (website) {
-      alert("Envoi refusé.");
-      return;
-    }
-
-    if (elapsedSeconds < 3) {
-      alert("Merci d’attendre quelques secondes avant d’envoyer.");
-      return;
-    }
-
-    if (!nom || !service || !date || !heure) {
-      alert("Merci de remplir les champs obligatoires.");
-      return;
-    }
-
-    if (!isPurchase(service) && !duree) {
-      alert("Merci de choisir une durée.");
-      return;
-    }
-
-    const payload = {
-      nom: nom,
-      service: service,
-      duree: duree,
-      date: date,
-      heure: heure,
-      message: message,
-      website: website,
-      elapsedSeconds: elapsedSeconds
-    };
-
-    try {
-      await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify(payload)
-      });
-    } catch (error) {
-      console.error("Erreur envoi sheet :", error);
-    }
-
-    let text =
-      "Bonjour Gaming Center Bouaké,\n\n" +
-      "Nom : " + nom + "\n" +
-      "Service : " + service + "\n";
-
-    if (!isPurchase(service)) {
-      text += "Durée : " + duree + "\n";
-    }
-
-    text +=
-      "Date : " + date + "\n" +
-      "Heure : " + heure + "\n" +
-      "Message : " + message;
-
-    const whatsappURL =
-      "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text);
-
-    window.open(whatsappURL, "_blank");
+document.getElementById("service").addEventListener("change", function() {
+  if (this.value === "ACHAT") {
+    document.getElementById("durationBox").style.display = "none";
+  } else {
+    document.getElementById("durationBox").style.display = "block";
   }
-
-  if (serviceEl) {
-    serviceEl.addEventListener("change", updateDurationVisibility);
-    updateDurationVisibility();
-  }
-
-  if (form) {
-    form.addEventListener("submit", envoyerReservation);
-  }
-
-  window.reserver = envoyerReservation;
-
-  chargerPostes();
 });
+
+function reserver() {
+
+  const nom = document.getElementById("nom").value;
+  const service = document.getElementById("service").value;
+  const duree = document.getElementById("duree").value;
+  const date = document.getElementById("date").value;
+  const heure = document.getElementById("heure").value;
+  const message = document.getElementById("message").value;
+
+  if (!nom || !service || !date || !heure) {
+    alert("Remplis les champs");
+    return;
+  }
+
+  let text =
+    "Gaming Center Bouaké\n\n" +
+    "Nom: " + nom + "\n" +
+    "Service: " + service + "\n";
+
+  if (service !== "ACHAT") {
+    text += "Durée: " + duree + "\n";
+  }
+
+  text +=
+    "Date: " + date + "\n" +
+    "Heure: " + heure + "\n" +
+    "Message: " + message;
+
+  window.open(
+    "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(text),
+    "_blank"
+  );
+}
+
+load();
+
 </script>
+
+</body>
+</html>
