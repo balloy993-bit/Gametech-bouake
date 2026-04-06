@@ -1,126 +1,197 @@
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzAkkWGNjVYjy5732R11ARmyT80rHsbwvIY2TAs_CLAYQbrxctuo8jyOfFFn9C_MiGzeA/exec";
-const WHATSAPP_NUMBER = "2250576066244";
+document.addEventListener("DOMContentLoaded", function () {
+  const API_URL = "https://script.google.com/macros/s/AKfycbzAkkWGNjVYjy5732R11ARmyT80rHsbwvIY2TAs_CLAYQbrxctuo8jyOfFFn9C_MiGzeA/exec";
+  const WHATSAPP_NUMBER = "2250576066244";
 
-// ⏱ temps de début du formulaire
-const formStartedAt = Date.now();
+  const formStartedAt = Date.now();
 
-// 🔁 normalisation (corrige undefined)
-function normalizeItem(item) {
-  return {
-    type: item.type || item.TYPE || "",
-    nom: item.nom || item.NOM || "",
-    statut: item.statut || item.STATUT || "",
-    date: item.date || item.DATE || "",
-    debut: item.debut || item.DEBUT || "",
-    fin: item.fin || item.FIN || ""
-  };
-}
-
-// 🎨 style statut
-function statusClass(status) {
-  const s = String(status).toLowerCase();
-  if (s === "libre") return "status-libre";
-  if (s === "réservé" || s === "reserve") return "status-reserve";
-  return "status-occupe";
-}
-
-// 📊 charger tableau
-async function chargerPostes() {
   const tableBody = document.getElementById("tableBody");
-  tableBody.innerHTML = "<tr><td colspan='7'>Chargement...</td></tr>";
+  const form = document.getElementById("reservationForm");
 
-  try {
-    const res = await fetch(API_URL);
-    const data = await res.json();
+  const nomEl = document.getElementById("nom");
+  const serviceEl = document.getElementById("service");
+  const dureeEl = document.getElementById("duree");
+  const dateEl = document.getElementById("date");
+  const heureEl = document.getElementById("heure");
+  const messageEl = document.getElementById("message");
+  const websiteEl = document.getElementById("website");
+  const durationBox = document.getElementById("durationBox");
 
-    tableBody.innerHTML = "";
-
-    data.map(normalizeItem).forEach(p => {
-      const tr = document.createElement("tr");
-
-      tr.innerHTML = `
-        <td>${p.type || "-"}</td>
-        <td>${p.nom || "-"}</td>
-        <td class="${statusClass(p.statut)}">${p.statut || "-"}</td>
-        <td>${p.date || "-"}</td>
-        <td>${p.debut || "-"}</td>
-        <td>${p.fin || "-"}</td>
-        <td><button onclick="selectPoste('${p.nom}')">Réserver</button></td>
-      `;
-
-      tableBody.appendChild(tr);
-    });
-
-  } catch (e) {
-    tableBody.innerHTML = "<tr><td colspan='7'>Erreur</td></tr>";
-  }
-}
-
-// 📌 sélection rapide
-function selectPoste(nom) {
-  document.getElementById("message").value = "Je veux réserver " + nom;
-}
-
-// 📤 réservation sécurisée
-async function reserver() {
-
-  const nom = document.getElementById("nom").value.trim();
-  const service = document.getElementById("service").value.trim();
-  const duree = document.getElementById("duree").value.trim();
-  const date = document.getElementById("date").value;
-  const heure = document.getElementById("heure").value;
-  const message = document.getElementById("message").value.trim();
-  const website = document.getElementById("website").value;
-
-  const elapsed = (Date.now() - formStartedAt) / 1000;
-
-  // 🚫 anti-bot
-  if (website) {
-    alert("Spam détecté");
-    return;
+  function normalizeItem(item) {
+    return {
+      type: item.type || item.TYPE || "",
+      nom: item.nom || item.NOM || "",
+      statut: item.statut || item.STATUT || "",
+      date: item.date || item.DATE || "",
+      debut: item.debut || item.DEBUT || "",
+      fin: item.fin || item.FIN || ""
+    };
   }
 
-  if (elapsed < 3) {
-    alert("Attends un peu avant d’envoyer");
-    return;
+  function statusClass(status) {
+    const s = String(status || "").toLowerCase().trim();
+    if (s === "libre") return "status-libre";
+    if (s === "réservé" || s === "reserve" || s === "reservé") return "status-reserve";
+    return "status-occupe";
   }
 
-  if (!nom || !service || !date || !heure) {
-    alert("Remplis les champs obligatoires");
-    return;
+  function isPurchase(value) {
+    const v = String(value || "").toLowerCase();
+    return v.includes("achat");
   }
 
-  // 📡 envoi vers Google Sheet
-  try {
-    await fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        nom,
-        service,
-        duree,
-        date,
-        heure,
-        message,
-        website,
-        elapsedSeconds: elapsed
-      })
-    });
-  } catch (e) {}
+  function updateDurationVisibility() {
+    if (!serviceEl || !durationBox || !dureeEl) return;
 
-  // 📲 WhatsApp auto
-  let text =
-    "Bonjour Gaming Center Bouaké,%0A%0A" +
-    "Nom : " + encodeURIComponent(nom) + "%0A" +
-    "Service : " + encodeURIComponent(service) + "%0A" +
-    "Durée : " + encodeURIComponent(duree) + "%0A" +
-    "Date : " + encodeURIComponent(date) + "%0A" +
-    "Heure : " + encodeURIComponent(heure) + "%0A" +
-    "Message : " + encodeURIComponent(message);
+    if (isPurchase(serviceEl.value)) {
+      durationBox.classList.add("hidden");
+      dureeEl.value = "";
+      dureeEl.required = false;
+    } else {
+      durationBox.classList.remove("hidden");
+      dureeEl.required = true;
+    }
+  }
 
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
-}
+  async function chargerPostes() {
+    if (!tableBody) return;
 
-// 🚀 lancer
-chargerPostes();
+    tableBody.innerHTML = "<tr><td colspan='7'>Chargement...</td></tr>";
+
+    try {
+      const response = await fetch(API_URL, { method: "GET" });
+      const data = await response.json();
+
+      if (!Array.isArray(data)) {
+        tableBody.innerHTML = "<tr><td colspan='7'>Aucune donnée reçue</td></tr>";
+        return;
+      }
+
+      tableBody.innerHTML = "";
+
+      data.map(normalizeItem).forEach((p) => {
+        const tr = document.createElement("tr");
+
+        const safeNom = String(p.nom || "").replace(/'/g, "\\'");
+
+        tr.innerHTML = `
+          <td>${p.type || "-"}</td>
+          <td>${p.nom || "-"}</td>
+          <td><span class="status ${statusClass(p.statut)}">${p.statut || "-"}</span></td>
+          <td>${p.date || "-"}</td>
+          <td>${p.debut || "-"}</td>
+          <td>${p.fin || "-"}</td>
+          <td><button type="button" class="btn btn-primary" onclick="selectPoste('${safeNom}')">Réserver</button></td>
+        `;
+
+        tableBody.appendChild(tr);
+      });
+
+      if (data.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='7'>Aucun poste trouvé</td></tr>";
+      }
+    } catch (error) {
+      console.error("Erreur chargement postes :", error);
+      tableBody.innerHTML = "<tr><td colspan='7'>Erreur de chargement</td></tr>";
+    }
+  }
+
+  window.selectPoste = function (nom) {
+    if (messageEl) {
+      messageEl.value = "Je veux réserver " + nom;
+    }
+    if (form) {
+      form.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  async function envoyerReservation(e) {
+    if (e) e.preventDefault();
+
+    const nom = nomEl ? nomEl.value.trim() : "";
+    const service = serviceEl ? serviceEl.value.trim() : "";
+    const duree = dureeEl ? dureeEl.value.trim() : "";
+    const date = dateEl ? dateEl.value : "";
+    const heure = heureEl ? heureEl.value : "";
+    const message = messageEl ? messageEl.value.trim() : "";
+    const website = websiteEl ? websiteEl.value.trim() : "";
+
+    const elapsedSeconds = (Date.now() - formStartedAt) / 1000;
+
+    if (website) {
+      alert("Envoi refusé.");
+      return;
+    }
+
+    if (elapsedSeconds < 3) {
+      alert("Merci d’attendre quelques secondes avant d’envoyer.");
+      return;
+    }
+
+    if (!nom || !service || !date || !heure) {
+      alert("Merci de remplir les champs obligatoires.");
+      return;
+    }
+
+    if (!isPurchase(service) && !duree) {
+      alert("Merci de choisir une durée.");
+      return;
+    }
+
+    const payload = {
+      nom: nom,
+      service: service,
+      duree: duree,
+      date: date,
+      heure: heure,
+      message: message,
+      website: website,
+      elapsedSeconds: elapsedSeconds
+    };
+
+    try {
+      await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (error) {
+      console.error("Erreur envoi sheet :", error);
+    }
+
+    let text =
+      "Bonjour Gaming Center Bouaké,\n\n" +
+      "Nom : " + nom + "\n" +
+      "Service : " + service + "\n";
+
+    if (!isPurchase(service)) {
+      text += "Durée : " + duree + "\n";
+    }
+
+    text +=
+      "Date : " + date + "\n" +
+      "Heure : " + heure + "\n" +
+      "Message : " + message;
+
+    const whatsappURL =
+      "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text);
+
+    window.open(whatsappURL, "_blank");
+  }
+
+  if (serviceEl) {
+    serviceEl.addEventListener("change", updateDurationVisibility);
+    updateDurationVisibility();
+  }
+
+  if (form) {
+    form.addEventListener("submit", envoyerReservation);
+  }
+
+  window.reserver = envoyerReservation;
+
+  chargerPostes();
+});
 </script>
