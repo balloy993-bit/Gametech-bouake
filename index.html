@@ -1,251 +1,1088 @@
-<script>
-const API_URL = "TON_LIEN_EXEC_ICI";
-const WHATSAPP_NUMBER = "225XXXXXXXXXX";
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameTech Bouaké - Salle Gaming & Vente</title>
+  <meta name="description" content="Salle gaming à Bouaké avec PS4, PS5, VR2, volant gaming, réservation et vente de consoles, casques VR, manettes et jeux." />
+  <style>
+    :root{
+      --bg:#070b17;
+      --bg2:#0f172a;
+      --card:#101827;
+      --line:#23314d;
+      --text:#eef4ff;
+      --muted:#b7c4da;
+      --blue:#38bdf8;
+      --green:#22c55e;
+      --red:#ef4444;
+      --yellow:#f59e0b;
+      --purple:#8b5cf6;
+      --pink:#ec4899;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
 
-// ⏱ temps de début du formulaire
-const formStartedAt = Date.now();
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.18), transparent 25%),
+        radial-gradient(circle at top right, rgba(139,92,246,.18), transparent 22%),
+        radial-gradient(circle at bottom left, rgba(34,197,94,.12), transparent 20%),
+        linear-gradient(180deg, #050814, #0b1120 40%, #0a1020 100%);
+    }
 
-// 🔁 normalisation (corrige undefined)
-function normalizeItem(item) {
-  return {
-    type: item.type || item.TYPE || "",
-    nom: item.nom || item.NOM || "",
-    statut: item.statut || item.STATUT || "",
-    date: item.date || item.DATE || "",
-    debut: item.debut || item.DEBUT || "",
-    fin: item.fin || item.FIN || ""
-  };
-}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1180px, 92%); margin:0 auto}
 
-// 🎨 style statut
-function statusClass(status) {
-  const s = String(status).toLowerCase();
-  if (s === "libre") return "status-libre";
-  if (s === "réservé" || s === "reserve") return "status-reserve";
-  return "status-occupe";
-}
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(10px);
+      background:rgba(5,8,20,.72);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
 
-// 📊 charger tableau
-async function chargerPostes() {
-  const tableBody = document.getElementById("tableBody");
-  tableBody.innerHTML = "<tr><td colspan='7'>Chargement...</td></tr>";
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 0;
+    }
 
-  try {
-    const res = await fetch(API_URL);
-    const data = await res.json();
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      font-size:1.35rem;
+      color:#fff;
+    }
 
-    tableBody.innerHTML = "";
+    .brand-badge{
+      width:42px;height:42px;border-radius:12px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow:var(--shadow);
+      font-size:1.3rem;
+    }
 
-    data.map(normalizeItem).forEach(p => {
-      const tr = document.createElement("tr");
+    .menu{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
 
-      tr.innerHTML = `
-        <td>${p.type || "-"}</td>
-        <td>${p.nom || "-"}</td>
-        <td class="${statusClass(p.statut)}">${p.statut || "-"}</td>
-        <td>${p.date || "-"}</td>
-        <td>${p.debut || "-"}</td>
-        <td>${p.fin || "-"}</td>
-        <td><button onclick="selectPoste('${p.nom}')">Réserver</button></td>
-      `;
+    .menu a{
+      color:var(--muted);
+      font-weight:700;
+      font-size:.96rem;
+    }
 
-      tableBody.appendChild(tr);
+    .menu a:hover{color:#fff}
+
+    .cta-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:12px 18px;
+      border:none;
+      border-radius:12px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.2s ease;
+      box-shadow:var(--shadow);
+    }
+
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:linear-gradient(135deg, var(--blue), #0ea5e9); color:#04121a}
+    .btn-green{background:linear-gradient(135deg, #22c55e, #16a34a); color:white}
+    .btn-dark{background:#121c2f; color:#fff; border:1px solid #2b3a58}
+    .btn-pink{background:linear-gradient(135deg, var(--pink), var(--purple)); color:#fff}
+
+    .hero{
+      padding:56px 0 38px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .9fr;
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .hero-card, .panel, .card{
+      background:linear-gradient(180deg, rgba(16,24,39,.95), rgba(10,16,32,.92));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-left{
+      padding:34px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-left::after{
+      content:"";
+      position:absolute;
+      inset:auto -60px -80px auto;
+      width:230px;height:230px;border-radius:50%;
+      background:radial-gradient(circle, rgba(56,189,248,.25), transparent 65%);
+      pointer-events:none;
+    }
+
+    .hero-kicker{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.85rem;
+      font-weight:800;
+      color:#dff6ff;
+      background:rgba(56,189,248,.12);
+      border:1px solid rgba(56,189,248,.32);
+      margin-bottom:16px;
+    }
+
+    h1{
+      margin:0 0 14px;
+      font-size:clamp(2rem, 5vw, 3.4rem);
+      line-height:1.05;
+    }
+
+    .gradient-text{
+      background:linear-gradient(135deg, #7dd3fc, #22c55e, #c084fc);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:1.04rem;
+      line-height:1.7;
+      max-width:760px;
+    }
+
+    .hero-actions{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin-top:24px;
+    }
+
+    .stat{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:14px;
+      text-align:center;
+    }
+
+    .stat strong{
+      display:block;
+      font-size:1.5rem;
+      color:#fff;
+      margin-bottom:4px;
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-size:.9rem;
+      font-weight:700;
+    }
+
+    .hero-right{
+      padding:22px;
+      display:grid;
+      gap:16px;
+    }
+
+    .mini-banner{
+      min-height:170px;
+      border-radius:18px;
+      background:
+        linear-gradient(135deg, rgba(139,92,246,.35), rgba(56,189,248,.2)),
+        url("https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80") center/cover;
+      border:1px solid rgba(255,255,255,.08);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .mini-banner::before{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(180deg, transparent, rgba(0,0,0,.5));
+    }
+
+    .mini-banner-text{
+      position:absolute;
+      left:18px; right:18px; bottom:16px;
+      z-index:1;
+    }
+
+    .mini-banner-text h3{
+      margin:0 0 6px;
+      font-size:1.35rem;
+    }
+
+    .mini-banner-text p{
+      margin:0;
+      color:#e2e8f0;
+      font-size:.95rem;
+    }
+
+    .quick-list{
+      display:grid;
+      gap:10px;
+    }
+
+    .quick-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:14px 16px;
+      border-radius:14px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .quick-item strong{color:#fff}
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:7px 12px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:.82rem;
+    }
+    .chip-green{background:rgba(34,197,94,.15); color:#4ade80; border:1px solid rgba(34,197,94,.35)}
+    .chip-yellow{background:rgba(245,158,11,.15); color:#fbbf24; border:1px solid rgba(245,158,11,.35)}
+    .chip-red{background:rgba(239,68,68,.15); color:#f87171; border:1px solid rgba(239,68,68,.35)}
+
+    section{
+      padding:28px 0 18px;
+    }
+
+    .section-head{
+      margin-bottom:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:end;
+      flex-wrap:wrap;
+    }
+
+    .section-head h2{
+      margin:0;
+      font-size:1.8rem;
+    }
+
+    .section-head p{
+      margin:8px 0 0;
+      color:var(--muted);
+      max-width:780px;
+      line-height:1.65;
+    }
+
+    .grid-4, .grid-3, .grid-2{
+      display:grid;
+      gap:18px;
+    }
+    .grid-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .grid-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+
+    .card{
+      padding:22px;
+    }
+
+    .card h3{
+      margin:0 0 10px;
+      color:#fff;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .icon-circle{
+      width:52px;height:52px;border-radius:16px;
+      display:grid;place-items:center;
+      font-size:1.3rem;
+      margin-bottom:14px;
+      background:linear-gradient(135deg, rgba(56,189,248,.2), rgba(139,92,246,.2));
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .price-line{
+      margin-top:10px;
+      font-weight:800;
+      color:#86efac;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
+    }
+
+    .gallery-item{
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow);
+      background:#0b1328;
+    }
+
+    .gallery-item img{
+      width:100%;
+      height:190px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .gallery-item div{
+      padding:14px 15px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .table-wrap{
+      overflow-x:auto;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(16,24,39,.95), rgba(10,16,32,.92));
+      box-shadow:var(--shadow);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:860px;
+    }
+
+    th, td{
+      padding:14px 16px;
+      text-align:left;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      vertical-align:middle;
+    }
+
+    th{
+      background:#08101f;
+      color:#7dd3fc;
+      font-size:.95rem;
+    }
+
+    td{color:#e5eefc}
+    .status{
+      display:inline-flex;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.85rem;
+      font-weight:800;
+    }
+    .status-libre{background:rgba(34,197,94,.15); color:#4ade80; border:1px solid rgba(34,197,94,.35)}
+    .status-reserve{background:rgba(245,158,11,.15); color:#fbbf24; border:1px solid rgba(245,158,11,.35)}
+    .status-occupe{background:rgba(239,68,68,.15); color:#f87171; border:1px solid rgba(239,68,68,.35)}
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .panel{
+      padding:24px;
+    }
+
+    .panel h3{
+      margin-top:0;
+      margin-bottom:14px;
+    }
+
+    .panel p, .panel li{
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .panel ul{
+      padding-left:18px;
+      margin:0;
+    }
+
+    form{
+      display:grid;
+      gap:14px;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding:14px;
+      border-radius:12px;
+      border:1px solid #31415f;
+      background:#0d162c;
+      color:#fff;
+      outline:none;
+      font-size:1rem;
+    }
+
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    input:focus, select:focus, textarea:focus{
+      border-color:#38bdf8;
+      box-shadow:0 0 0 3px rgba(56,189,248,.12);
+    }
+
+    .note-red{
+      color:#ff5a5a;
+      font-weight:800;
+      text-align:center;
+      margin-top:8px;
+    }
+
+    .hidden{display:none}
+
+    .socials{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .socials a{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 16px;
+      border-radius:12px;
+      background:#0f1b33;
+      border:1px solid rgba(255,255,255,.08);
+      color:#fff;
+      font-weight:800;
+    }
+
+    footer{
+      padding:26px 0 44px;
+      color:#9fb0cb;
+      text-align:center;
+    }
+
+    .floating{
+      position:fixed;
+      right:16px;
+      z-index:999;
+      padding:14px 16px;
+      border-radius:999px;
+      color:#fff;
+      font-weight:800;
+      text-decoration:none;
+      box-shadow:var(--shadow);
+    }
+
+    .floating-call{bottom:80px;background:#16a34a}
+    .floating-wa{bottom:18px;background:#25D366}
+
+    .small-muted{color:var(--muted); font-size:.92rem}
+
+    @media (max-width: 920px){
+      .hero-grid,
+      .info-grid{
+        grid-template-columns:1fr;
+      }
+      .hero-stats{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .menu{
+        display:none;
+      }
+    }
+
+    @media (max-width: 600px){
+      .hero-stats{
+        grid-template-columns:1fr 1fr;
+      }
+      .floating{
+        right:12px;
+      }
+      .floating-call{bottom:72px}
+      .floating-wa{bottom:12px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-badge">🎮</div>
+        <div>GameTech Bouaké</div>
+      </div>
+
+      <nav class="menu">
+        <a href="#services">Services</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#disponibilites">Disponibilités</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#jeux">Jeux</a>
+        <a href="#produits">Produits</a>
+        <a href="#contact">Réserver</a>
+      </nav>
+
+      <div class="cta-row">
+        <a class="btn btn-green" href="tel:2250576066244">Appeler</a>
+        <a class="btn btn-primary" href="https://wa.me/2250576066244" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card hero-left">
+          <div class="hero-kicker">Salle gaming • Réservation • Vente</div>
+          <h1>
+            Une <span class="gradient-text">expérience gaming</span><br>
+            moderne à Bouaké
+          </h1>
+          <p>
+            Profite de 5 postes PS4, 4 postes PS5, 2 postes PS VR2 et du volant gaming sur PS4 et PS5.
+            Nous proposons aussi la vente de PS3, PS4, PS5, casques VR, manettes et jeux vidéo.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Réserver maintenant</a>
+            <a class="btn btn-dark" href="#disponibilites">Voir les places</a>
+            <a class="btn btn-pink" href="#produits">Voir les produits</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat"><strong>5</strong><span>Postes PS4</span></div>
+            <div class="stat"><strong>4</strong><span>Postes PS5</span></div>
+            <div class="stat"><strong>2</strong><span>Postes VR2</span></div>
+            <div class="stat"><strong>7j/7</strong><span>Ouverture</span></div>
+          </div>
+        </div>
+
+        <div class="hero-card hero-right">
+          <div class="mini-banner">
+            <div class="mini-banner-text">
+              <h3>Ambiance gamer</h3>
+              <p>Réserve ta session, viens jouer et profite d’un espace premium.</p>
+            </div>
+          </div>
+
+          <div class="quick-list">
+            <div class="quick-item">
+              <strong>PS4</strong>
+              <span class="chip chip-green">Accessible</span>
+            </div>
+            <div class="quick-item">
+              <strong>PS5</strong>
+              <span class="chip chip-green">Premium</span>
+            </div>
+            <div class="quick-item">
+              <strong>VR2</strong>
+              <span class="chip chip-yellow">Places limitées</span>
+            </div>
+            <div class="quick-item">
+              <strong>Volant gaming</strong>
+              <span class="chip chip-yellow">Sur demande</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Nos services</h2>
+            <p>Une salle conçue pour jouer, se détendre, réserver et acheter du matériel gaming.</p>
+          </div>
+        </div>
+
+        <div class="grid-4">
+          <div class="card">
+            <div class="icon-circle">🎮</div>
+            <h3>Espace PS4</h3>
+            <p>5 postes PlayStation 4 pour jouer seul ou entre amis.</p>
+          </div>
+          <div class="card">
+            <div class="icon-circle">⚡</div>
+            <h3>Espace PS5</h3>
+            <p>4 postes premium nouvelle génération pour plus de fluidité.</p>
+          </div>
+          <div class="card">
+            <div class="icon-circle">🥽</div>
+            <h3>PS VR2</h3>
+            <p>2 postes de réalité virtuelle pour une immersion maximale.</p>
+          </div>
+          <div class="card">
+            <div class="icon-circle">🏎️</div>
+            <h3>Volant gaming</h3>
+            <p>Disponible sur PS4 et PS5 selon l’occupation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tarifs">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Tarifs</h2>
+            <p>Des prix clairs pour les sessions rapides, longues, journée complète et location.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>PS4</h3>
+            <p class="price-line">1 heure : 800 FCFA</p>
+            <p class="price-line">2 heures : 1500 FCFA</p>
+            <p>Journée complète : sur demande</p>
+            <p>Location : sur demande</p>
+          </div>
+
+          <div class="card">
+            <h3>PS5</h3>
+            <p class="price-line">1 heure : 1500 FCFA</p>
+            <p class="price-line">2 heures : 2500 FCFA</p>
+            <p>Journée complète : sur demande</p>
+            <p>Location : sur demande</p>
+          </div>
+
+          <div class="card">
+            <h3>PS VR2</h3>
+            <p class="price-line">3 heures : 5000 FCFA</p>
+            <p>Journée complète : sur demande</p>
+            <p>Location : sur demande</p>
+          </div>
+
+          <div class="card">
+            <h3>Volant gaming PS5</h3>
+            <p class="price-line">1 heure : 2000 FCFA</p>
+            <p>Journée complète : sur demande</p>
+          </div>
+
+          <div class="card">
+            <h3>Volant gaming PS4</h3>
+            <p class="price-line">1 heure : 1500 FCFA</p>
+            <p>Journée complète : sur demande</p>
+          </div>
+
+          <div class="card">
+            <h3>Informations</h3>
+            <p>Pour les groupes, journée complète ou location, contacte-nous directement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="disponibilites">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Disponibilités des postes</h2>
+            <p>Le tableau est connecté à ton planning. Les postes occupés ou réservés ne sont pas réservables.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Nom</th>
+                <th>Statut</th>
+                <th>Date</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr>
+                <td colspan="7">Chargement...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="galerie">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Galerie</h2>
+            <p>Tu peux garder ces images ou les remplacer plus tard par les vraies photos de ta salle.</p>
+          </div>
+        </div>
+
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=1200&q=80" alt="Salle gaming">
+            <div>Salle gaming moderne</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1603481546579-65d935ba9cdd?auto=format&fit=crop&w=1200&q=80" alt="Postes PS5">
+            <div>Espace PS5 premium</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1627856013091-fed6e4e30025?auto=format&fit=crop&w=1200&q=80" alt="VR">
+            <div>Expérience VR immersive</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1200&q=80" alt="Volant gaming">
+            <div>Volant gaming et course</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="jeux">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Jeux populaires</h2>
+            <p>Quelques titres appréciés dans la salle.</p>
+          </div>
+        </div>
+
+        <div class="grid-4">
+          <div class="card"><h3>EA Sports FC</h3><p>Le classique pour les matchs entre amis.</p></div>
+          <div class="card"><h3>Call of Duty</h3><p>Action rapide et compétition.</p></div>
+          <div class="card"><h3>GTA</h3><p>Expérience libre très demandée.</p></div>
+          <div class="card"><h3>Gran Turismo</h3><p>Parfait avec le volant gaming.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="produits">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Produits en vente</h2>
+            <p>Consoles, casques VR, manettes et jeux disponibles selon le stock.</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card"><h3>PlayStation 3</h3><p>Disponible selon stock.</p></div>
+          <div class="card"><h3>PlayStation 4</h3><p>Console très demandée avec large catalogue.</p></div>
+          <div class="card"><h3>PlayStation 5</h3><p>Nouvelle génération pour les joueurs premium.</p></div>
+          <div class="card"><h3>Casques VR PlayStation</h3><p>Immersion plus poussée.</p></div>
+          <div class="card"><h3>Casques Quest</h3><p>Selon arrivage et modèle.</p></div>
+          <div class="card"><h3>Manettes & jeux</h3><p>Selon disponibilité en stock.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container info-grid">
+        <div class="panel">
+          <h3>Réserver ou acheter</h3>
+          <p>Remplis le formulaire. La demande s’enregistre et WhatsApp s’ouvre avec ton message déjà prêt.</p>
+
+          <p><strong>Horaires</strong><br>
+          Lundi à Vendredi : 08h à 22h<br>
+          Samedi et Dimanche : 10h à 23h30</p>
+
+          <p><strong>Téléphone</strong><br>
+          +225 05 76 06 62 44</p>
+
+          <p><strong>Activité</strong><br>
+          Salle gaming, réservation, vente de consoles, accessoires et jeux.</p>
+
+          <div class="socials">
+            <a href="https://instagram.com/@levis_c76" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://tiktok.com/@levis_c76" target="_blank" rel="noopener noreferrer">TikTok</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Formulaire</h3>
+
+          <form id="reservationForm">
+            <input id="nom" placeholder="ton nom" required>
+
+            <select id="service" required>
+              <option value="">Choisir un service ou produit</option>
+              <option>Réserver PS4</option>
+              <option>Réserver PS5</option>
+              <option>Réserver VR2</option>
+              <option>Réserver Volant PS4</option>
+              <option>Réserver Volant PS5</option>
+              <option>Achat PS3</option>
+              <option>Achat PS4</option>
+              <option>Achat PS5</option>
+              <option>Achat Casque VR</option>
+              <option>Achat Manette</option>
+              <option>Achat Jeu</option>
+            </select>
+
+            <div id="durationBox">
+              <select id="duree">
+                <option value="">Choisir une durée</option>
+                <option>1h</option>
+                <option>2h</option>
+                <option>3h</option>
+                <option>Journée complète</option>
+                <option>Location</option>
+              </select>
+            </div>
+
+            <input type="date" id="date" required>
+            <input type="time" id="heure" required>
+            <textarea id="message" placeholder="Message"></textarea>
+
+            <input type="text" id="website" class="hidden" tabindex="-1" autocomplete="off">
+
+            <button class="btn btn-primary" type="submit">Envoyer la demande</button>
+          </form>
+
+          <p class="note-red">La réservation est confirmée après validation sur WhatsApp</p>
+          <p class="small-muted">Pour un achat, la durée n’est pas obligatoire.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 GameTech Bouaké — Salle gaming et vente de consoles et accessoires.
+    </div>
+  </footer>
+
+  <a class="floating floating-call" href="tel:2250576066244">Appeler</a>
+  <a class="floating floating-wa" href="https://wa.me/2250576066244" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const API_URL = "https://script.google.com/macros/s/AKfycbzAkkWGNjVYjy5732R11ARmyT80rHsbwvIY2TAs_CLAYQbrxctuo8jyOfFFn9C_MiGzeA/exec";
+      const WHATSAPP_NUMBER = "2250576066244";
+      const formStartedAt = Date.now();
+
+      const tableBody = document.getElementById("tableBody");
+      const form = document.getElementById("reservationForm");
+      const nomEl = document.getElementById("nom");
+      const serviceEl = document.getElementById("service");
+      const dureeEl = document.getElementById("duree");
+      const dateEl = document.getElementById("date");
+      const heureEl = document.getElementById("heure");
+      const messageEl = document.getElementById("message");
+      const websiteEl = document.getElementById("website");
+      const durationBox = document.getElementById("durationBox");
+
+      function normalizeItem(item) {
+        return {
+          type: item.type || item.TYPE || "",
+          nom: item.nom || item.NOM || "",
+          statut: item.statut || item.STATUT || "",
+          date: item.date || item.DATE || "",
+          debut: item.debut || item.DEBUT || "",
+          fin: item.fin || item.FIN || ""
+        };
+      }
+
+      function statusClass(status) {
+        const s = String(status || "").toLowerCase().trim();
+        if (s === "libre") return "status-libre";
+        if (s === "réservé" || s === "reserve" || s === "reservé") return "status-reserve";
+        return "status-occupe";
+      }
+
+      function isPurchase(value) {
+        return String(value || "").toLowerCase().includes("achat");
+      }
+
+      function updateDurationVisibility() {
+        if (!serviceEl || !durationBox || !dureeEl) return;
+
+        if (isPurchase(serviceEl.value)) {
+          durationBox.classList.add("hidden");
+          dureeEl.required = false;
+          dureeEl.value = "";
+        } else {
+          durationBox.classList.remove("hidden");
+          dureeEl.required = true;
+        }
+      }
+
+      async function chargerPostes() {
+        if (!tableBody) return;
+
+        tableBody.innerHTML = "<tr><td colspan='7'>Chargement...</td></tr>";
+
+        try {
+          const response = await fetch(API_URL, { method: "GET" });
+          const data = await response.json();
+
+          if (!Array.isArray(data)) {
+            tableBody.innerHTML = "<tr><td colspan='7'>Aucune donnée reçue</td></tr>";
+            return;
+          }
+
+          tableBody.innerHTML = "";
+
+          data.map(normalizeItem).forEach((p) => {
+            const tr = document.createElement("tr");
+            const lowerStatus = String(p.statut || "").toLowerCase();
+            const reservable = lowerStatus === "libre";
+            const btnLabel = reservable ? "Réserver" : "Complet";
+
+            tr.innerHTML = `
+              <td>${p.type || "-"}</td>
+              <td>${p.nom || "-"}</td>
+              <td><span class="status ${statusClass(p.statut)}">${p.statut || "-"}</span></td>
+              <td>${p.date || "-"}</td>
+              <td>${p.debut || "-"}</td>
+              <td>${p.fin || "-"}</td>
+              <td>
+                <button
+                  class="btn ${reservable ? "btn-primary" : "btn-dark"}"
+                  type="button"
+                  ${reservable ? "" : "disabled"}
+                  data-poste="${p.nom || ""}"
+                >${btnLabel}</button>
+              </td>
+            `;
+            tableBody.appendChild(tr);
+          });
+
+          tableBody.querySelectorAll("button[data-poste]").forEach((btn) => {
+            btn.addEventListener("click", function () {
+              const poste = btn.getAttribute("data-poste") || "";
+              if (messageEl) {
+                messageEl.value = "Je veux réserver " + poste;
+              }
+              document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+            });
+          });
+
+          if (data.length === 0) {
+            tableBody.innerHTML = "<tr><td colspan='7'>Aucun poste trouvé</td></tr>";
+          }
+        } catch (error) {
+          console.error("Erreur chargement postes :", error);
+          tableBody.innerHTML = "<tr><td colspan='7'>Erreur de chargement</td></tr>";
+        }
+      }
+
+      if (serviceEl) {
+        serviceEl.addEventListener("change", updateDurationVisibility);
+        updateDurationVisibility();
+      }
+
+      if (form) {
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const nom = nomEl ? nomEl.value.trim() : "";
+          const service = serviceEl ? serviceEl.value.trim() : "";
+          const duree = dureeEl ? dureeEl.value.trim() : "";
+          const date = dateEl ? dateEl.value : "";
+          const heure = heureEl ? heureEl.value : "";
+          const message = messageEl ? messageEl.value.trim() : "";
+          const website = websiteEl ? websiteEl.value.trim() : "";
+          const elapsedSeconds = (Date.now() - formStartedAt) / 1000;
+
+          if (website) {
+            alert("Envoi refusé.");
+            return;
+          }
+
+          if (elapsedSeconds < 3) {
+            alert("Merci d’attendre quelques secondes avant d’envoyer.");
+            return;
+          }
+
+          if (!nom || !service || !date || !heure) {
+            alert("Merci de remplir tous les champs obligatoires.");
+            return;
+          }
+
+          if (!isPurchase(service) && !duree) {
+            alert("Merci de choisir une durée.");
+            return;
+          }
+
+          const payload = {
+            nom,
+            service,
+            duree,
+            date,
+            heure,
+            message,
+            website,
+            elapsedSeconds
+          };
+
+          try {
+            await fetch(API_URL, {
+              method: "POST",
+              headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+              },
+              body: JSON.stringify(payload)
+            });
+          } catch (error) {
+            console.error("Erreur envoi sheet :", error);
+          }
+
+          let text =
+            "Bonjour GameTech Bouaké,\n\n" +
+            "Nom : " + nom + "\n" +
+            "Service : " + service + "\n";
+
+          if (!isPurchase(service)) {
+            text += "Durée : " + duree + "\n";
+          }
+
+          text +=
+            "Date : " + date + "\n" +
+            "Heure : " + heure + "\n" +
+            "Message : " + message;
+
+          const whatsappURL = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text);
+          window.open(whatsappURL, "_blank");
+        });
+      }
+
+      chargerPostes();
     });
-
-  } catch (e) {
-    tableBody.innerHTML = "<tr><td colspan='7'>Erreur</td></tr>";
-  }
-}
-
-// 📌 sélection rapide
-function selectPoste(nom) {
-  document.getElementById("message").value = "Je veux réserver " + nom;
-}
-
-// 📤 réservation sécurisée
-async function reserver() {
-
-  const nom = document.getElementById("nom").value.trim();
-  const service = document.getElementById("service").value.trim();
-  const duree = document.getElementById("duree").value.trim();
-  const date = document.getElementById("date").value;
-  const heure = document.getElementById("heure").value;
-  const message = document.getElementById("message").value.trim();
-  const website = document.getElementById("website").value;
-
-  const elapsed = (Date.now() - formStartedAt) / 1000;
-
-  // 🚫 anti-bot
-  if (website) {
-    alert("Spam détecté");
-    return;
-  }
-
-  if (elapsed < 3) {
-    alert("Attends un peu avant d’envoyer");
-    return;
-  }
-
-  if (!nom || !service || !date || !heure) {
-    alert("Remplis les champs obligatoires");
-    return;
-  }
-
-  // 📡 envoi vers Google Sheet
-  try {
-    await fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        nom,
-        service,
-        duree,
-        date,
-        heure,
-        message,
-        website,
-        elapsedSeconds: elapsed
-      })
-    });
-  } catch (e) {}
-
-  // 📲 WhatsApp auto
-  let text =
-    "Bonjour Gaming Center Bouaké,%0A%0A" +
-    "Nom : " + encodeURIComponent(nom) + "%0A" +
-    "Service : " + encodeURIComponent(service) + "%0A" +
-    "Durée : " + encodeURIComponent(duree) + "%0A" +
-    "Date : " + encodeURIComponent(date) + "%0A" +
-    "Heure : " + encodeURIComponent(heure) + "%0A" +
-    "Message : " + encodeURIComponent(message);
-
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
-}
-
-// 🚀 lancer
-chargerPostes();
-</script><script>
-const API_URL = "TON_LIEN_EXEC_ICI";
-const WHATSAPP_NUMBER = "225XXXXXXXXXX";
-
-// ⏱ temps de début du formulaire
-const formStartedAt = Date.now();
-
-// 🔁 normalisation (corrige undefined)
-function normalizeItem(item) {
-  return {
-    type: item.type || item.TYPE || "",
-    nom: item.nom || item.NOM || "",
-    statut: item.statut || item.STATUT || "",
-    date: item.date || item.DATE || "",
-    debut: item.debut || item.DEBUT || "",
-    fin: item.fin || item.FIN || ""
-  };
-}
-
-// 🎨 style statut
-function statusClass(status) {
-  const s = String(status).toLowerCase();
-  if (s === "libre") return "status-libre";
-  if (s === "réservé" || s === "reserve") return "status-reserve";
-  return "status-occupe";
-}
-
-// 📊 charger tableau
-async function chargerPostes() {
-  const tableBody = document.getElementById("tableBody");
-  tableBody.innerHTML = "<tr><td colspan='7'>Chargement...</td></tr>";
-
-  try {
-    const res = await fetch(API_URL);
-    const data = await res.json();
-
-    tableBody.innerHTML = "";
-
-    data.map(normalizeItem).forEach(p => {
-      const tr = document.createElement("tr");
-
-      tr.innerHTML = `
-        <td>${p.type || "-"}</td>
-        <td>${p.nom || "-"}</td>
-        <td class="${statusClass(p.statut)}">${p.statut || "-"}</td>
-        <td>${p.date || "-"}</td>
-        <td>${p.debut || "-"}</td>
-        <td>${p.fin || "-"}</td>
-        <td><button onclick="selectPoste('${p.nom}')">Réserver</button></td>
-      `;
-
-      tableBody.appendChild(tr);
-    });
-
-  } catch (e) {
-    tableBody.innerHTML = "<tr><td colspan='7'>Erreur</td></tr>";
-  }
-}
-
-// 📌 sélection rapide
-function selectPoste(nom) {
-  document.getElementById("message").value = "Je veux réserver " + nom;
-}
-
-// 📤 réservation sécurisée
-async function reserver() {
-
-  const nom = document.getElementById("nom").value.trim();
-  const service = document.getElementById("service").value.trim();
-  const duree = document.getElementById("duree").value.trim();
-  const date = document.getElementById("date").value;
-  const heure = document.getElementById("heure").value;
-  const message = document.getElementById("message").value.trim();
-  const website = document.getElementById("website").value;
-
-  const elapsed = (Date.now() - formStartedAt) / 1000;
-
-  // 🚫 anti-bot
-  if (website) {
-    alert("Spam détecté");
-    return;
-  }
-
-  if (elapsed < 3) {
-    alert("Attends un peu avant d’envoyer");
-    return;
-  }
-
-  if (!nom || !service || !date || !heure) {
-    alert("Remplis les champs obligatoires");
-    return;
-  }
-
-  // 📡 envoi vers Google Sheet
-  try {
-    await fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        nom,
-        service,
-        duree,
-        date,
-        heure,
-        message,
-        website,
-        elapsedSeconds: elapsed
-      })
-    });
-  } catch (e) {}
-
-  // 📲 WhatsApp auto
-  let text =
-    "Bonjour Gaming Center Bouaké,%0A%0A" +
-    "Nom : " + encodeURIComponent(nom) + "%0A" +
-    "Service : " + encodeURIComponent(service) + "%0A" +
-    "Durée : " + encodeURIComponent(duree) + "%0A" +
-    "Date : " + encodeURIComponent(date) + "%0A" +
-    "Heure : " + encodeURIComponent(heure) + "%0A" +
-    "Message : " + encodeURIComponent(message);
-
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
-}
-
-// 🚀 lancer
-chargerPostes();
-</script>V
+  </script>
+</body>
+</html>
