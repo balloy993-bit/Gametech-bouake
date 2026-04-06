@@ -538,6 +538,37 @@
       .floating-call{bottom:72px}
       .floating-wa{bottom:12px}
     }
+    .custom-visual{
+  background:#0b1328;
+}
+
+.visual-box{
+  height:190px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.4rem;
+  font-weight:800;
+  letter-spacing:1px;
+  color:white;
+  text-transform:uppercase;
+}
+
+.visual-ps4{
+  background:linear-gradient(135deg, #1d4ed8, #38bdf8);
+}
+
+.visual-ps5{
+  background:linear-gradient(135deg, #0f172a, #60a5fa);
+}
+
+.visual-vr{
+  background:linear-gradient(135deg, #7c3aed, #ec4899);
+}
+
+.visual-racing{
+  background:linear-gradient(135deg, #15803d, #22c55e);
+}
   </style>
 </head>
 <body>
@@ -742,35 +773,38 @@
       </div>
     </section>
 
-    <section id="galerie">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Galerie</h2>
-            <p>Tu peux garder ces images ou les remplacer plus tard par les vraies photos de ta salle.</p>
-          </div>
-        </div>
-
-        <div class="gallery">
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=1200&q=80" alt="Salle gaming">
-            <div>Salle gaming moderne</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1603481546579-65d935ba9cdd?auto=format&fit=crop&w=1200&q=80" alt="Postes PS5">
-            <div>Espace PS5 premium</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1627856013091-fed6e4e30025?auto=format&fit=crop&w=1200&q=80" alt="VR">
-            <div>Expérience VR immersive</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1200&q=80" alt="Volant gaming">
-            <div>Volant gaming et course</div>
-          </div>
-        </div>
+<section id="galerie">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Notre univers gaming</h2>
+        <p>Un espace moderne pour jouer sur PS4, PS5, VR2 et volant gaming.</p>
       </div>
-    </section>
+    </div>
+
+    <div class="gallery">
+      <div class="gallery-item custom-visual">
+        <div class="visual-box visual-ps4">PS4 ZONE</div>
+        <div>5 postes PlayStation 4 pour jouer seul ou entre amis.</div>
+      </div>
+
+      <div class="gallery-item custom-visual">
+        <div class="visual-box visual-ps5">PS5 ZONE</div>
+        <div>4 postes PlayStation 5 pour une expérience premium.</div>
+      </div>
+
+      <div class="gallery-item custom-visual">
+        <div class="visual-box visual-vr">VR2 EXPERIENCE</div>
+        <div>2 postes VR2 pour une immersion en réalité virtuelle.</div>
+      </div>
+
+      <div class="gallery-item custom-visual">
+        <div class="visual-box visual-racing">RACING SETUP</div>
+        <div>Volant gaming sur PS4 et PS5 pour les jeux de course.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <section id="jeux">
       <div class="container">
