@@ -629,6 +629,54 @@
 .hidden{
   display:none;
 }
+    .reglement-details{
+  background:#111827;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;
+  padding:14px 16px;
+}
+
+.reglement-details summary{
+  cursor:pointer;
+  font-weight:800;
+  color:#38bdf8;
+  list-style:none;
+}
+
+.reglement-details summary::-webkit-details-marker{
+  display:none;
+}
+
+.reglement-details summary::after{
+  content:" ▼";
+  font-size:0.9rem;
+}
+
+.reglement-details[open] summary::after{
+  content:" ▲";
+}
+
+.reglement-box{
+  display:grid;
+  gap:12px;
+  margin-top:16px;
+}
+
+.regle{
+  background:#0f172a;
+  border:1px solid rgba(255,255,255,0.08);
+  padding:14px;
+  border-radius:12px;
+  font-weight:600;
+  color:#e2e8f0;
+}
+
+.regle.important{
+  border:1px solid #ef4444;
+  background:rgba(239,68,68,0.1);
+  color:#f87171;
+  font-weight:800;
+}
   </style>
 </head>
 <body>
@@ -730,7 +778,7 @@
             <p>5 postes PlayStation 4 pour jouer solo ou 👥 Duo.</p>
           </div>
           <div class="card">
-            <div class="icon-circle">⚡🎮</div>
+            <div class="icon-circle">🎮</div>
             <h3>Espace PS5</h3>
             <p>4 postes premium nouvelle génération pour plus de fluidité(solo ou 👥 Duo).</p>
           </div>
@@ -913,6 +961,16 @@
     </div>
 
 <section id="reglement">
+  <div class="container">
+
+    <div class="section-head">
+      <h2>Règlement</h2>
+      <button onclick="toggleReglement()" class="btn-regle">
+        Voir le règlement
+      </button>
+    </div>
+
+    <section id="reglement">
   <div class="container">
 
     <div class="section-head">
