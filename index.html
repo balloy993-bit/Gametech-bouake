@@ -667,12 +667,12 @@
           <div class="card">
             <div class="icon-circle">🎮</div>
             <h3>Espace PS4</h3>
-            <p>5 postes PlayStation 4 pour jouer solo ou à deux.</p>
+            <p>5 postes PlayStation 4 pour jouer solo ou 👥 Duo.</p>
           </div>
           <div class="card">
-            <div class="icon-circle">⚡</div>
+            <div class="icon-circle">⚡🎮</div>
             <h3>Espace PS5</h3>
-            <p>4 postes premium nouvelle génération pour plus de fluidité.</p>
+            <p>4 postes premium nouvelle génération pour plus de fluidité(solo ou 👥 Duo).</p>
           </div>
           <div class="card">
             <div class="icon-circle">🥽</div>
@@ -693,7 +693,7 @@
         <div class="section-head">
           <div>
             <h2>Tarifs</h2>
-            <p>faites vous plaisir et/ou conatcte nous pour plus d'informations</p>
+            <p>Les tarifs peuvent changées avec l'option duo(ça depend du nombres d'heure)! faites vous plaisir et/ou conatcte nous pour plus d'informations</p>
           </div>
         </div>
 
@@ -904,7 +904,12 @@
 
             <input type="text" id="website" class="hidden" tabindex="-1" autocomplete="off">
 
-            <button class="btn btn-primary" type="submit">Envoyer la demande</button>
+            <div class="check-reglement">
+  <input type="checkbox" id="acceptReglement">
+  <label for="acceptReglement">J’ai lu et j’accepte le règlement</label>
+</div>
+
+<button class="btn btn-primary" type="submit">Envoyer la demande</button>
           </form>
 
           <p class="note-red">NB: La réservation est confirmée après validation sur WhatsApp</p>
@@ -1052,7 +1057,12 @@
           const message = messageEl ? messageEl.value.trim() : "";
           const website = websiteEl ? websiteEl.value.trim() : "";
           const elapsedSeconds = (Date.now() - formStartedAt) / 1000;
+          const acceptReglement = document.getElementById("acceptReglement");
 
+          if (!acceptReglement || !acceptReglement.checked) {
+          alert("Veuillez accepter le règlement avant d’envoyer la réservation.");
+          return;
+          }
           if (website) {
             alert("Envoi refusé.");
             return;
@@ -1062,7 +1072,7 @@
             alert("Merci d’attendre quelques secondes avant d’envoyer.");
             return;
           }
-
+          
           if (!nom || !service || !date || !heure) {
             alert("Merci de remplir tous les champs obligatoires.");
             return;
