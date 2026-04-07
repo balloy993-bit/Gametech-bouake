@@ -569,6 +569,53 @@
 .visual-racing{
   background:linear-gradient(135deg, #15803d, #22c55e);
 }
+    .reglement-box{
+  display:grid;
+  gap:12px;
+  margin-top:20px;
+}
+
+.regle{
+  background:#0f172a;
+  border:1px solid rgba(255,255,255,0.08);
+  padding:14px;
+  border-radius:12px;
+  font-weight:600;
+  color:#e2e8f0;
+  transition:0.2s;
+}
+
+.regle:hover{
+  transform:translateX(4px);
+  background:#1e293b;
+}
+
+.regle.important{
+  border:1px solid #ef4444;
+  background:rgba(239,68,68,0.1);
+  color:#f87171;
+  font-weight:800;
+}
+
+.check-reglement{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  color:#e5eefc;
+  font-size:0.95rem;
+  font-weight:700;
+}
+
+.check-reglement input{
+  width:18px;
+  height:18px;
+  cursor:pointer;
+}
+
+.check-reglement label{
+  cursor:pointer;
+}
   </style>
 </head>
 <body>
@@ -843,7 +890,30 @@
         </div>
       </div>
     </section>
+<section id="reglement">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Règlement</h2>
+        <p>Merci de respecter ces règles pour garantir une bonne expérience à tous.</p>
+      </div>
+    </div>
 
+    <div class="reglement-box">
+      <div class="regle">🎮 Respect du matériel : toute dégradation sera facturée.</div>
+      <div class="regle">⏱️ Le temps de jeu commence dès le lancement de la session.</div>
+      <div class="regle">👥 Chaque poste est limité au nombre de joueurs autorisé.</div>
+      <div class="regle">🚫 Interdiction de modifier les consoles ou les jeux.</div>
+      <div class="regle">🚭 Interdiction de fumer dans la salle.</div>
+      <div class="regle">🍔 Interdiction de manger à l’intérieur de la salle.</div>
+      <div class="regle">⚠️ Toute forme de violence est strictement interdite.</div>
+      <div class="regle">🧑‍🤝‍🧑 Respect des autres joueurs obligatoire.</div>
+      <div class="regle">📅 Toute réservation est confirmée via WhatsApp.</div>
+      <div class="regle">👶 Les enfants de moins de 12 ans doivent être accompagnés d’un adulte.</div>
+      <div class="regle important">🚨 Le non-respect du règlement peut entraîner une exclusion immédiate.</div>
+    </div>
+  </div>
+</section>
     <section id="contact">
       <div class="container info-grid">
         <div class="panel">
