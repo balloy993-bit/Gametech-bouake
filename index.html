@@ -616,6 +616,19 @@
 .check-reglement label{
   cursor:pointer;
 }
+    .btn-regle{
+  background:#22c55e;
+  color:black;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.hidden{
+  display:none;
+}
   </style>
 </head>
 <body>
@@ -899,19 +912,28 @@
       </div>
     </div>
 
-    <div class="reglement-box">
-      <div class="regle">🎮 Respect du matériel : toute dégradation sera facturée.</div>
-      <div class="regle">⏱️ Le temps de jeu commence dès le lancement de la session.</div>
-      <div class="regle">👥 Chaque poste est limité au nombre de joueurs autorisé.</div>
-      <div class="regle">🚫 Interdiction de modifier les consoles ou les jeux.</div>
-      <div class="regle">🚭 Interdiction de fumer dans la salle.</div>
-      <div class="regle">🍔 Interdiction de manger à l’intérieur de la salle.</div>
-      <div class="regle">⚠️ Toute forme de violence est strictement interdite.</div>
-      <div class="regle">🧑‍🤝‍🧑 Respect des autres joueurs obligatoire.</div>
-      <div class="regle">📅 Toute réservation est confirmée via WhatsApp.</div>
-      <div class="regle">👶 Les enfants de moins de 12 ans doivent être accompagnés d’un adulte.</div>
-      <div class="regle important">🚨 Le non-respect du règlement peut entraîner une exclusion immédiate.</div>
+<section id="reglement">
+  <div class="container">
+
+    <div class="section-head">
+      <h2>Règlement</h2>
+      <button onclick="toggleReglement()" class="btn-regle">
+        Voir le règlement
+      </button>
     </div>
+
+    <div id="reglementContent" class="reglement-box hidden">
+
+      <div class="regle">🎮 Respect du matériel : toute dégradation sera facturée.</div>
+      <div class="regle">🚭 Interdiction de fumer.</div>
+      <div class="regle">🍔 Interdiction de manger.</div>
+      <div class="regle">⚠️ Aucune violence tolérée.</div>
+      <div class="regle">👥 Respect des joueurs obligatoire.</div>
+      <div class="regle">👶 -12 ans accompagnés.</div>
+      <div class="regle important">🚨 Non-respect = exclusion immédiate.</div>
+
+    </div>
+
   </div>
 </section>
     <section id="contact">
@@ -1128,7 +1150,15 @@
           const website = websiteEl ? websiteEl.value.trim() : "";
           const elapsedSeconds = (Date.now() - formStartedAt) / 1000;
           const acceptReglement = document.getElementById("acceptReglement");
+          function toggleReglement() {
+          const box = document.getElementById("reglementContent");
 
+          if (box.classList.contains("hidden")) {
+          box.classList.remove("hidden");
+          } else {
+          box.classList.add("hidden");
+          }
+          }
           if (!acceptReglement || !acceptReglement.checked) {
           alert("Veuillez accepter le règlement avant d’envoyer la réservation.");
           return;
